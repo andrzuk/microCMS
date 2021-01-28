@@ -1,0 +1,137 @@
+h3 {
+	color: #090;
+	text-decoration: underline;
+}
+
+div#navbarResponsive ul.navbar-nav li.nav-item {
+	display: none;
+}
+
+div#mainContent {
+	margin: 2em;
+}
+
+div#mainContent div.loginForm {
+	text-align: left;
+	color: #666;
+	padding-top: 2em;
+	display: none;
+}
+
+div#mainContent div.loginForm form#mainLoginForm {
+	margin: 7em 0 0 0;
+	padding: 2em;
+	text-align: left;
+	color: #666;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+div#mainContent div.loginForm form#mainLoginForm div.button {
+	padding-top: 1em;
+	text-align: right;
+}
+
+div#mainContent div.loginForm form#mainLoginForm div.button button.btn {
+	width: 120px;
+	margin: 5px 0;
+}
+
+div#mainContent div.itemContent {
+	text-align: left;
+	color: #666;
+	padding-top: 2em;
+	border-bottom: 1px solid #ddd;
+	display: none;
+}
+
+div#mainContent div.itemContent button.btn-block {
+	margin-top: 10px;
+}
+
+div#mainContent div.itemContent table.table {
+	margin: 2em 0 0 0;
+	display: table;
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+div#mainContent div.itemContent table.table tr.normal {
+	color: #369;
+}
+
+div#mainContent div.itemContent table.table tr.locked {
+	color: #900;
+}
+
+div#mainContent div.itemContent table.table td.action {
+	display: flex;
+}
+
+div#mainContent div.itemContent button.btn-default {
+	border: 2px solid #ccc;
+	margin-bottom: 1em;
+}
+
+div#mainContent div.itemContent table.table button.btn {
+	margin: 1px;
+}
+
+div#mainContent div.itemContent form.form {
+	margin: 1.5em 0;
+}
+
+div#mainContent div.itemContent form.form div.button {
+	text-align: right;
+}
+
+div#mainContent div.itemContent form.form div.button button.btn {
+	width: 100px;
+	margin: 5px 0;
+}
+
+div#mainContent div.itemContent form.form textarea.form-control {
+	min-height: 350px;
+	max-height: 350px;
+	font-family: monospace;
+	font-size: 1.1em;
+}
+
+div#mainContent div.itemContent form#imageForm span#previewImage {
+	border: 1px solid #ccc;
+	padding: 2px;
+	display: block;
+	text-align: center;
+}
+
+div#mainContent div.itemContent form#imageForm span#previewImage img {
+	width: 100%;
+	height: auto;
+}
+
+div#mainContent div.itemContent form#imageForm span.imageDetails {
+	color: #369;
+	font-weight: bold;
+}
+
+div#mainContent div.modal-content {
+	border: 2px solid #c00;
+	background: #fee;
+	color: #c00;
+}
+
+div#messages {
+	position: fixed;
+	left: 0;
+	bottom: 2em;
+	width: 100%;
+	padding: 2em 5em;
+	display: none;
+}
+
+div#messages div.alert {
+	text-align: center;
+	display: none;
+}
+
