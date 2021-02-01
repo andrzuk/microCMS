@@ -3,6 +3,10 @@ h3 {
 	text-decoration: underline;
 }
 
+div#masterTabs {
+	display: none;
+}
+
 div#navbarResponsive ul.navbar-nav li.nav-item {
 	display: none;
 }
@@ -92,8 +96,8 @@ div#mainContent div.itemContent form.form div.button button.btn {
 }
 
 div#mainContent div.itemContent form.form textarea.form-control {
-	min-height: 350px;
-	max-height: 350px;
+	min-height: 370px;
+	max-height: 370px;
 	font-family: monospace;
 	font-size: 1.1em;
 }
