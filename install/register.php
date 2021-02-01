@@ -201,10 +201,11 @@ if (!empty($email) && !empty($password)) {
 			(1, 'header', '<div class=\"container\">\r\n<div class=\"masthead-subheading\">Welcome To Our Studio!</div>\r\n<div class=\"masthead-heading text-uppercase\">It\'s Nice To Meet You</div>\r\n<a class=\"btn btn-primary btn-xl text-uppercase js-scroll-trigger\" href=\"/admin\">Admin Panel</a>\r\n</div>\r\n'),
 			(2, 'footer', '<div class=\"container\">\r\n<div class=\"row align-items-center\">\r\n<div class=\"col-lg-4 text-lg-left\">Copyright © MicroCMS 2021</div>\r\n<div class=\"col-lg-4 my-3 my-lg-0\">\r\n<a class=\"btn btn-dark btn-social mx-2\" href=\"#!\"><i class=\"fab fa-twitter\"></i></a>\r\n<a class=\"btn btn-dark btn-social mx-2\" href=\"#!\"><i class=\"fab fa-facebook-f\"></i></a>\r\n<a class=\"btn btn-dark btn-social mx-2\" href=\"#!\"><i class=\"fab fa-linkedin-in\"></i></a>\r\n</div>\r\n<div class=\"col-lg-4 text-lg-right\">\r\n<a class=\"mr-3\" href=\"#!\">Privacy Policy</a>\r\n<a href=\"#!\">Terms of Use</a>\r\n</div>\r\n</div>\r\n</div>\r\n'),
 			(3, 'title', 'Super Slim CMS'),
-			(4, 'description', 'Native CMS - super slim and fast Micro CMS based on free templates and jQuery scrips. Admin Panel included.'),
-			(5, 'author', 'Andrzej Żukowski'),
-			(6, 'script', 'setTimeout(function() {\n$(\'h3\').css({ color: \'#090\', \'text-decoration\': \'underline\' });\n}, 200);'),
-			(7, 'style', 'body {\nmargin: inherit;\npadding: inherit;\nbackground: inherit;\n}');
+			(4, 'logo', '<span style=\"color: #c00; font-size: 1.25em;\">micro</span><span style=\"color: #0c0; font-size: 1.75em; font-weight: bold;\">CMS</span>'),
+			(5, 'description', 'Native CMS - super slim and fast Micro CMS based on free templates and jQuery scrips. Admin Panel included.'),
+			(6, 'author', 'Andrzej Żukowski'),
+			(7, 'script', 'setTimeout(function() {\n$(\'h3\').css({ color: \'#090\', \'text-decoration\': \'underline\' });\n}, 200);'),
+			(8, 'style', 'body {\nmargin: inherit;\npadding: inherit;\nbackground: inherit;\n}');
 		",
 		"
 			INSERT INTO `roles` (`id`, `name`, `mask_a`, `mask_o`, `mask_u`, `mask_g`) VALUES

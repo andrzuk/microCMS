@@ -37,6 +37,9 @@ const page = {
             if (name == 'title') {
                 $('head title').text($part.data.content);
             }
+            if (name == 'logo') {
+                $('span#brand-logo').html($part.data.content);
+            }
             if (name == 'description') {
                 $('head meta[name=description]').attr('content', $part.data.content);
             }
@@ -49,6 +52,12 @@ const page = {
             if (name == 'footer') {
                 $('footer#mainFooter').append($part.data.content);
             }
+            if (name == 'style') {
+                $('style#customStyle').html($part.data.content);
+            }
+            if (name == 'script') {
+                $('script#customScript').html($part.data.content);
+            }
         });
     },
 };
@@ -57,12 +66,15 @@ $(document).ready(function() {
     page.getReady(function(ready) {
         if (ready) {
             page.getPart('title');
+            page.getPart('logo');
             page.getPart('description');
             page.getPart('author');
             page.getPart('header');        
             page.getMenu();
             page.getSections();
             page.getPart('footer');        
+            page.getPart('style');
+            page.getPart('script');
         }
         else {
             page.showInstall();
