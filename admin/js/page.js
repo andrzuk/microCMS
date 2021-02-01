@@ -59,6 +59,7 @@ const page = {
 function showLoginForm() {
     $('li.logged-out').show();
     $('li.logged-in').hide();
+    $('div#masterTabs').hide();
     $('div.itemContent').hide();
     $('div#loginForm').fadeIn(function() {
         setTimeout(function () { $('input#email').focus(); }, 500);
@@ -137,6 +138,7 @@ function showPreview() {
 function showAdminPanel() {
     $('li.logged-out').hide();
     $('li.logged-in').show();
+    $('div#masterTabs').show();
     $('div.itemContent').hide();
     $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#imagesList').fadeIn();
     loadUsersList();
@@ -144,7 +146,6 @@ function showAdminPanel() {
     loadMenusList();
     loadSectionsList();
     loadImagesList();
-    adminScrolling();
 }
 
 function loadUsersList() {

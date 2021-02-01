@@ -1,400 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Bare - Start Bootstrap Template</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Admin Page CSS -->
-  <link href="css/styles.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="/admin">Admin Panel</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item logged-out">
-            <a class="nav-link" href="#" onclick="showPreview()">Zamknij</a>
-          </li>
-          <li class="nav-item logged-in">
-            <a class="nav-link" href="#" onclick="showPreview()">Preview</a>
-          </li>
-          <li class="nav-item logged-in">
-            <a class="nav-link" href="#" onclick="logoutUser()">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Page Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Agency - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="" /></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ml-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ml-auto"></ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead" id="mainHeader"></header>
+        <!-- Main Content-->
         <div id="mainContent">
-          <!-- Page not ready -->
-          <div id="install" class="text-center" style="margin: 10em 0; display: none;">
-              <a href="/install"><button class="btn btn-lg btn-success">Install Backend of Application</button></a>
-          </div>
-          <!-- End -->
-          <!-- Login Form -->
-          <div class="loginForm" id="loginForm">
-            <div class="row">
-              <div class="col-md-4 mx-auto">
-                  <form class="form" id="mainLoginForm" method="POST">
-                      <h3 class="mb-4">Logowanie</h3>
-                      <div class="form-group">
-                          <label for="email">Login lub email:</label>
-                          <input type="text" id="email" name="email" class="form-control" required />
-                      </div>
-                      <div class="form-group">
-                          <label for="password">Hasło:</label>
-                          <input type="password" id="password" name="password" class="form-control" required />
-                      </div>
-                      <div class="button">
-                          <button class="btn btn-lg btn-primary" type="button" onclick="loginUser()">Zaloguj</button>
-                          <button class="btn btn-lg btn-warning" type="button" onclick="showPreview()">Anuluj</button>
-                      </div>
-                  </form>
-              </div>
+            <div id="install" class="text-center" style="margin-top: -10em; display: none;">
+                <a href="/install"><button class="btn btn-lg btn-success">Install Backend of Application</button></a>
             </div>
-          </div>
-          <!-- End -->
-		  <div id="masterTabs">
-			<!-- Nav Tab Header -->
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-			  <li class="nav-item">
-				<a class="nav-link active" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Users</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" id="menus-tab" data-toggle="tab" href="#menus" role="tab" aria-controls="menus" aria-selected="false">Menus</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" id="sections-tab" data-toggle="tab" href="#sections" role="tab" aria-controls="sections" aria-selected="false">Sections</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
-			  </li>
-			</ul>
-			<!-- Nav Tab End -->
-		  </div>
-			<!-- Nav Tab Body -->
-			<div class="tab-content" id="myTabContent">
-			  <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">			  
-				  <!-- Users List -->
-				  <div class="itemContent" id="usersList">
-					<div class="row">
-					  <div class="col-md-9">
-						<table class="table">
-						  <thead>
-							<tr>
-							  <th scope="col">#</th>
-							  <th scope="col">Login</th>
-							  <th scope="col">Email</th>
-							  <th scope="col">Role</th>
-							  <th scope="col">Logged</th>
-							  <th scope="col">Action</th>
-							</tr>
-						  </thead>
-						  <tbody>
-						  </tbody>
-						</table>
-						<button class="btn btn-md btn-block btn-default" type="button" onclick="addUser()">Dodaj</button>
-					  </div>
-					  <div class="col-md-3">
-						<form class="form" id="userForm" method="POST">
-						  <div class="form-group">
-							  <label for="login">Login:</label>
-							  <input type="text" id="edit-login" name="login" class="form-control" required />
-						  </div>
-						  <div class="form-group">
-							  <label for="email">Email:</label>
-							  <input type="text" id="edit-email" name="email" class="form-control" required />
-						  </div>
-						  <div class="form-group">
-							  <label for="role">Rola:</label>
-							  <select id="edit-role" name="role" class="form-control">
-								<option value="1">Admin</option>
-								<option value="2">Operator</option>
-								<option value="3">User</option>
-								<option value="4">Guest</option>
-							  </select>
-						  </div>
-						  <div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="enabled" id="edit-enabled-on" value="1">
-							  <label class="form-check-label" for="edit-enabled-on">Enabled</label>
-						  </div>
-						  <div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="enabled" id="edit-enabled-off" value="0">
-							  <label class="form-check-label" for="edit-enabled-off">Disabled</label>
-						  </div>
-						  <input type="hidden" id="user-id">
-						  <div class="button">
-							  <button class="btn btn-md btn-primary" type="button" onclick="saveUser()">Zapisz</button>
-						  </div>
-						</form>
-						<form class="form" id="passwordForm" method="POST">
-						  <div class="form-group">
-							  <label for="password">Password:</label>
-							  <input type="password" id="edit-password" name="password" class="form-control" required />
-						  </div>
-						  <input type="hidden" id="password-id">
-						  <div class="button">
-							  <button class="btn btn-md btn-primary" type="button" onclick="savePassword()">Zapisz</button>
-						  </div>
-						</form>
-					  </div>
-					</div>
-				  </div>
-				  <!-- End -->
-			  </div>
-			  <div class="tab-pane fade" id="parts" role="tabpanel" aria-labelledby="parts-tab">
-				  <!-- Parts List -->
-				  <div class="itemContent" id="partsList">
-					<div class="row">
-					  <div class="col-md-5">
-						<table class="table">
-						  <thead>
-							<tr>
-							  <th scope="col">#</th>
-							  <th scope="col">Name</th>
-							  <th scope="col">Content</th>
-							  <th scope="col">Action</th>
-							</tr>
-						  </thead>
-						  <tbody>
-						  </tbody>
-						</table>
-					  </div>
-					  <div class="col-md-7">
-						<form class="form" id="partForm" method="POST">
-						  <div class="form-group">
-							  <label for="login">Name:</label>
-							  <input type="text" id="edit-name" name="name" class="form-control" required />
-						  </div>
-						  <div class="form-group">
-							  <label for="content">Content:</label>
-							  <textarea id="edit-content" name="content" class="form-control" required></textarea>
-						  </div>
-						  <input type="hidden" id="part-id">
-						  <div class="button">
-							  <button class="btn btn-md btn-primary" type="button" onclick="savePart()">Zapisz</button>
-						  </div>
-						</form>
-					  </div>
-					</div>
-				  </div>
-				  <!-- End -->
-			  </div>
-			  <div class="tab-pane fade" id="menus" role="tabpanel" aria-labelledby="menus-tab">
-				  <!-- Menu List -->
-				  <div class="itemContent" id="menusList">
-					<div class="row">
-					  <div class="col-md-8">
-						<table class="table">
-						  <thead>
-							<tr>
-							  <th scope="col">#</th>
-							  <th scope="col">Caption</th>
-							  <th scope="col">Sequence</th>
-							  <th scope="col">Action</th>
-							</tr>
-						  </thead>
-						  <tbody>
-						  </tbody>
-						</table>
-						<button class="btn btn-md btn-block btn-default" type="button" onclick="addMenu()">Dodaj</button>
-					  </div>
-					  <div class="col-md-4">
-						<form class="form" id="menuForm" method="POST">
-						  <div class="form-group">
-							  <label for="caption">Caption:</label>
-							  <input type="text" id="edit-caption" name="caption" class="form-control" required />
-						  </div>
-						  <div class="form-group">
-							  <label for="sequence">Sequence:</label>
-							  <input type="number" id="edit-sequence" name="sequence" class="form-control" required />
-						  </div>
-						  <div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="active" id="edit-active-on" value="1">
-							  <label class="form-check-label" for="edit-active-on">Enabled</label>
-						  </div>
-						  <div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="active" id="edit-active-off" value="0">
-							  <label class="form-check-label" for="edit-active-off">Disabled</label>
-						  </div>
-						  <input type="hidden" id="menu-id">
-						  <div class="button">
-							  <button class="btn btn-md btn-primary" type="button" onclick="saveMenu()">Zapisz</button>
-						  </div>
-						</form>
-					  </div>
-					</div>
-				  </div>
-				  <!-- End -->
-			  </div>
-			  <div class="tab-pane fade" id="sections" role="tabpanel" aria-labelledby="sections-tab">
-				  <!-- Sections List -->
-				  <div class="itemContent" id="sectionsList">
-					<div class="row">
-					  <div class="col-md-5">
-						<table class="table">
-						  <thead>
-							<tr>
-							  <th scope="col">#</th>
-							  <th scope="col">Menu</th>
-							  <th scope="col">Sequence</th>
-							  <th scope="col">Action</th>
-							</tr>
-						  </thead>
-						  <tbody>
-						  </tbody>
-						</table>
-						<button class="btn btn-md btn-block btn-default" type="button" onclick="addSection()">Dodaj</button>
-					  </div>
-					  <div class="col-md-7">
-						<form class="form" id="sectionForm" method="POST">
-						  <div class="form-group">
-							  <label for="link">Menu Id:</label>
-							  <select id="link-id" name="link" class="form-control"></select>
-						  </div>
-						  <div class="form-group">
-							  <label for="content">Content:</label>
-							  <textarea id="edit-contents" name="content" class="form-control" required></textarea>
-						  </div>
-						  <div class="form-group">
-							  <label for="order">Sequence:</label>
-							  <input type="number" id="edit-order" name="order" class="form-control" required />
-						  </div>
-						  <div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="visible" id="edit-visible-on" value="1">
-							  <label class="form-check-label" for="edit-visible-on">Enabled</label>
-						  </div>
-						  <div class="form-check form-check-inline">
-							  <input class="form-check-input" type="radio" name="visible" id="edit-visible-off" value="0">
-							  <label class="form-check-label" for="edit-visible-off">Disabled</label>
-						  </div>
-						  <input type="hidden" id="section-id">
-						  <div class="button">
-							  <button class="btn btn-md btn-primary" type="button" onclick="saveSection()">Zapisz</button>
-						  </div>
-						</form>
-					  </div>
-					</div>
-				  </div>
-				  <!-- End -->
-			  </div>
-			  <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-				  <!-- Images List -->
-				  <div class="itemContent" id="imagesList">
-					<div class="row">
-					  <div class="col-md-7">
-						<table class="table">
-						  <thead>
-							<tr>
-							  <th scope="col">#</th>
-							  <th scope="col">Filename</th>
-							  <th scope="col">Type</th>
-							  <th scope="col">Size</th>
-							  <th scope="col">Action</th>
-							</tr>
-						  </thead>
-						  <tbody>
-						  </tbody>
-						</table>
-					  </div>
-					  <div class="col-md-5">
-						<form class="form" id="imageForm" method="POST" enctype="multipart/form-data">
-						  <div class="form-group">
-							  <label for="preview">Podgląd:</label><br>
-							  <span id="previewImage"><img src=""></span>
-						  </div>
-						  <div class="form-group">
-							  <label for="imageId">#</label><span id="imageId" class="imageDetails"></span>
-							  <label for="imageName">: &nbsp;</label><span id="imageName" class="imageDetails"></span>
-						  </div>
-						  <div class="form-group">
-							  <label for="fileToUpload">Dodaj nowy obrazek:</label><br>
-							  <input type="file" id="fileToUpload" name="fileToUpload">
-						  </div>
-						  <div class="button">
-							  <button class="btn btn-md btn-primary" type="button" id="upload" name="submit" onclick="uploadImage()">Wyślij</button>
-						  </div>
-						</form>
-					  </div>
-					</div>
-				  </div>
-				  <!-- End -->
-			  </div>
-			</div>
-			<!-- Nav Tab End -->
-          <!-- Modal Confirmation -->
-          <div class="modal" id="removeConfirm" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Usuwanie rekordu</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p><b>Uwaga!</b> Za chwilę wybrany rekord zostanie usunięty. <br>Czy na pewno chcesz go usunąć?</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirm">Usuń</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
         </div>
-      </div>
-    </div>
-  </div>
-  <!-- Alerts -->
-  <div id="messages">
-    <div class="alert alert-success" role="alert">
-      A simple success alert—check it out!
-    </div>
-    <div class="alert alert-danger" role="alert">
-      A simple danger alert—check it out!
-    </div>  
-  </div>
-  <!-- End -->
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Admin Page Script -->
-  <script src="js/page.js"></script>
-
-  <!-- Custom Styles -->
-  <style id="customStyle"></style>
-  <!-- Custom Scripts -->
-  <script id="customScript"></script>
-
-</body>
-
+        <!-- Footer-->
+        <footer class="footer py-4" id="mainFooter"></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Contact form JS-->
+        <script src="assets/mail/jqBootstrapValidation.js"></script>
+        <script src="assets/mail/contact_me.js"></script>
+        <!-- Core logic JS-->
+        <script src="js/scrolling.js"></script>
+        <script src="js/page.js"></script>
+    </body>
 </html>

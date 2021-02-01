@@ -33,21 +33,6 @@
             <a class="nav-link" href="#" onclick="showPreview()">Zamknij</a>
           </li>
           <li class="nav-item logged-in">
-            <a class="nav-link js-scroll-trigger" href="#usersList">Users</a>
-          </li>
-          <li class="nav-item logged-in">
-            <a class="nav-link js-scroll-trigger" href="#partsList">Parts</a>
-          </li>
-          <li class="nav-item logged-in">
-            <a class="nav-link js-scroll-trigger" href="#menusList">Menus</a>
-          </li>
-          <li class="nav-item logged-in">
-            <a class="nav-link js-scroll-trigger" href="#sectionsList">Sections</a>
-          </li>
-          <li class="nav-item logged-in">
-            <a class="nav-link js-scroll-trigger" href="#imagesList">Images</a>
-          </li>
-          <li class="nav-item logged-in">
             <a class="nav-link" href="#" onclick="showPreview()">Preview</a>
           </li>
           <li class="nav-item logged-in">
@@ -91,251 +76,277 @@
             </div>
           </div>
           <!-- End -->
-          <!-- Users List -->
-          <div class="itemContent" id="usersList">
-            <div class="row">
-              <div class="col-md-9">
-                <h3 class="mb-2">Users List</h3>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Login</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Role</th>
-                      <th scope="col">Logged</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                <button class="btn btn-md btn-block btn-default" type="button" onclick="addUser()">Dodaj</button>
-              </div>
-              <div class="col-md-3">
-                <h3 class="mb-2">User Form</h3>
-                <form class="form" id="userForm" method="POST">
-                  <div class="form-group">
-                      <label for="login">Login:</label>
-                      <input type="text" id="edit-login" name="login" class="form-control" required />
-                  </div>
-                  <div class="form-group">
-                      <label for="email">Email:</label>
-                      <input type="text" id="edit-email" name="email" class="form-control" required />
-                  </div>
-                  <div class="form-group">
-                      <label for="role">Rola:</label>
-                      <select id="edit-role" name="role" class="form-control">
-                        <option value="1">Admin</option>
-                        <option value="2">Operator</option>
-                        <option value="3">User</option>
-                        <option value="4">Guest</option>
-                      </select>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="enabled" id="edit-enabled-on" value="1">
-                      <label class="form-check-label" for="edit-enabled-on">Enabled</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="enabled" id="edit-enabled-off" value="0">
-                      <label class="form-check-label" for="edit-enabled-off">Disabled</label>
-                  </div>
-                  <input type="hidden" id="user-id">
-                  <div class="button">
-                      <button class="btn btn-md btn-primary" type="button" onclick="saveUser()">Zapisz</button>
-                  </div>
-                </form>
-                <form class="form" id="passwordForm" method="POST">
-                  <div class="form-group">
-                      <label for="password">Password:</label>
-                      <input type="password" id="edit-password" name="password" class="form-control" required />
-                  </div>
-                  <input type="hidden" id="password-id">
-                  <div class="button">
-                      <button class="btn btn-md btn-primary" type="button" onclick="savePassword()">Zapisz</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-          <!-- Parts List -->
-          <div class="itemContent" id="partsList">
-            <div class="row">
-              <div class="col-md-5">
-                <h3 class="mb-2">Parts List</h3>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Content</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-md-7">
-                <h3 class="mb-2">Part Form</h3>
-                <form class="form" id="partForm" method="POST">
-                  <div class="form-group">
-                      <label for="login">Name:</label>
-                      <input type="text" id="edit-name" name="name" class="form-control" required />
-                  </div>
-                  <div class="form-group">
-                      <label for="content">Content:</label>
-                      <textarea id="edit-content" name="content" class="form-control" required></textarea>
-                  </div>
-                  <input type="hidden" id="part-id">
-                  <div class="button">
-                      <button class="btn btn-md btn-primary" type="button" onclick="savePart()">Zapisz</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-          <!-- Menu List -->
-          <div class="itemContent" id="menusList">
-            <div class="row">
-              <div class="col-md-8">
-                <h3 class="mb-2">Menus List</h3>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Caption</th>
-                      <th scope="col">Sequence</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                <button class="btn btn-md btn-block btn-default" type="button" onclick="addMenu()">Dodaj</button>
-              </div>
-              <div class="col-md-4">
-                <h3 class="mb-2">Menu Form</h3>
-                <form class="form" id="menuForm" method="POST">
-                  <div class="form-group">
-                      <label for="caption">Caption:</label>
-                      <input type="text" id="edit-caption" name="caption" class="form-control" required />
-                  </div>
-                  <div class="form-group">
-                      <label for="sequence">Sequence:</label>
-                      <input type="number" id="edit-sequence" name="sequence" class="form-control" required />
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="active" id="edit-active-on" value="1">
-                      <label class="form-check-label" for="edit-active-on">Enabled</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="active" id="edit-active-off" value="0">
-                      <label class="form-check-label" for="edit-active-off">Disabled</label>
-                  </div>
-                  <input type="hidden" id="menu-id">
-                  <div class="button">
-                      <button class="btn btn-md btn-primary" type="button" onclick="saveMenu()">Zapisz</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-          <!-- Sections List -->
-          <div class="itemContent" id="sectionsList">
-            <div class="row">
-              <div class="col-md-5">
-                <h3 class="mb-2">Sections List</h3>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Menu</th>
-                      <th scope="col">Sequence</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-                <button class="btn btn-md btn-block btn-default" type="button" onclick="addSection()">Dodaj</button>
-              </div>
-              <div class="col-md-7">
-                <h3 class="mb-2">Section Form</h3>
-                <form class="form" id="sectionForm" method="POST">
-                  <div class="form-group">
-                      <label for="link">Menu Id:</label>
-                      <select id="link-id" name="link" class="form-control"></select>
-                  </div>
-                  <div class="form-group">
-                      <label for="content">Content:</label>
-                      <textarea id="edit-contents" name="content" class="form-control" required></textarea>
-                  </div>
-                  <div class="form-group">
-                      <label for="order">Sequence:</label>
-                      <input type="number" id="edit-order" name="order" class="form-control" required />
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="visible" id="edit-visible-on" value="1">
-                      <label class="form-check-label" for="edit-visible-on">Enabled</label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="visible" id="edit-visible-off" value="0">
-                      <label class="form-check-label" for="edit-visible-off">Disabled</label>
-                  </div>
-                  <input type="hidden" id="section-id">
-                  <div class="button">
-                      <button class="btn btn-md btn-primary" type="button" onclick="saveSection()">Zapisz</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- End -->
-          <!-- Images List -->
-          <div class="itemContent" id="imagesList">
-            <div class="row">
-              <div class="col-md-7">
-                <h3 class="mb-2">Images List</h3>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Filename</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Size</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-md-5">
-                <h3 class="mb-2">Image Form</h3>
-                <form class="form" id="imageForm" method="POST" enctype="multipart/form-data">
-                  <div class="form-group">
-                      <label for="preview">Podgląd:</label><br>
-                      <span id="previewImage"><img src=""></span>
-                  </div>
-                  <div class="form-group">
-                      <label for="imageId">#</label><span id="imageId" class="imageDetails"></span>
-                      <label for="imageName">: &nbsp;</label><span id="imageName" class="imageDetails"></span>
-                  </div>
-                  <div class="form-group">
-                      <label for="fileToUpload">Dodaj nowy obrazek:</label><br>
-                      <input type="file" id="fileToUpload" name="fileToUpload">
-                  </div>
-                  <div class="button">
-                      <button class="btn btn-md btn-primary" type="button" id="upload" name="submit" onclick="uploadImage()">Wyślij</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+		  <div id="masterTabs">
+			<!-- Nav Tab Header -->
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+			  <li class="nav-item">
+				<a class="nav-link active" id="users-tab" data-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Users</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="menus-tab" data-toggle="tab" href="#menus" role="tab" aria-controls="menus" aria-selected="false">Menus</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="sections-tab" data-toggle="tab" href="#sections" role="tab" aria-controls="sections" aria-selected="false">Sections</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
+			  </li>
+			</ul>
+			<!-- Nav Tab End -->
+		  </div>
+			<!-- Nav Tab Body -->
+			<div class="tab-content" id="myTabContent">
+			  <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">			  
+				  <!-- Users List -->
+				  <div class="itemContent" id="usersList">
+					<div class="row">
+					  <div class="col-md-9">
+						<table class="table">
+						  <thead>
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Login</th>
+							  <th scope="col">Email</th>
+							  <th scope="col">Role</th>
+							  <th scope="col">Logged</th>
+							  <th scope="col">Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>
+						<button class="btn btn-md btn-block btn-default" type="button" onclick="addUser()">Dodaj</button>
+					  </div>
+					  <div class="col-md-3">
+						<form class="form" id="userForm" method="POST">
+						  <div class="form-group">
+							  <label for="login">Login:</label>
+							  <input type="text" id="edit-login" name="login" class="form-control" required />
+						  </div>
+						  <div class="form-group">
+							  <label for="email">Email:</label>
+							  <input type="text" id="edit-email" name="email" class="form-control" required />
+						  </div>
+						  <div class="form-group">
+							  <label for="role">Rola:</label>
+							  <select id="edit-role" name="role" class="form-control">
+								<option value="1">Admin</option>
+								<option value="2">Operator</option>
+								<option value="3">User</option>
+								<option value="4">Guest</option>
+							  </select>
+						  </div>
+						  <div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="enabled" id="edit-enabled-on" value="1">
+							  <label class="form-check-label" for="edit-enabled-on">Enabled</label>
+						  </div>
+						  <div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="enabled" id="edit-enabled-off" value="0">
+							  <label class="form-check-label" for="edit-enabled-off">Disabled</label>
+						  </div>
+						  <input type="hidden" id="user-id">
+						  <div class="button">
+							  <button class="btn btn-md btn-primary" type="button" onclick="saveUser()">Zapisz</button>
+						  </div>
+						</form>
+						<form class="form" id="passwordForm" method="POST">
+						  <div class="form-group">
+							  <label for="password">Password:</label>
+							  <input type="password" id="edit-password" name="password" class="form-control" required />
+						  </div>
+						  <input type="hidden" id="password-id">
+						  <div class="button">
+							  <button class="btn btn-md btn-primary" type="button" onclick="savePassword()">Zapisz</button>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				  </div>
+				  <!-- End -->
+			  </div>
+			  <div class="tab-pane fade" id="parts" role="tabpanel" aria-labelledby="parts-tab">
+				  <!-- Parts List -->
+				  <div class="itemContent" id="partsList">
+					<div class="row">
+					  <div class="col-md-5">
+						<table class="table">
+						  <thead>
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Name</th>
+							  <th scope="col">Content</th>
+							  <th scope="col">Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>
+					  </div>
+					  <div class="col-md-7">
+						<form class="form" id="partForm" method="POST">
+						  <div class="form-group">
+							  <label for="login">Name:</label>
+							  <input type="text" id="edit-name" name="name" class="form-control" required />
+						  </div>
+						  <div class="form-group">
+							  <label for="content">Content:</label>
+							  <textarea id="edit-content" name="content" class="form-control" required></textarea>
+						  </div>
+						  <input type="hidden" id="part-id">
+						  <div class="button">
+							  <button class="btn btn-md btn-primary" type="button" onclick="savePart()">Zapisz</button>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				  </div>
+				  <!-- End -->
+			  </div>
+			  <div class="tab-pane fade" id="menus" role="tabpanel" aria-labelledby="menus-tab">
+				  <!-- Menu List -->
+				  <div class="itemContent" id="menusList">
+					<div class="row">
+					  <div class="col-md-8">
+						<table class="table">
+						  <thead>
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Caption</th>
+							  <th scope="col">Sequence</th>
+							  <th scope="col">Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>
+						<button class="btn btn-md btn-block btn-default" type="button" onclick="addMenu()">Dodaj</button>
+					  </div>
+					  <div class="col-md-4">
+						<form class="form" id="menuForm" method="POST">
+						  <div class="form-group">
+							  <label for="caption">Caption:</label>
+							  <input type="text" id="edit-caption" name="caption" class="form-control" required />
+						  </div>
+						  <div class="form-group">
+							  <label for="sequence">Sequence:</label>
+							  <input type="number" id="edit-sequence" name="sequence" class="form-control" required />
+						  </div>
+						  <div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="active" id="edit-active-on" value="1">
+							  <label class="form-check-label" for="edit-active-on">Enabled</label>
+						  </div>
+						  <div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="active" id="edit-active-off" value="0">
+							  <label class="form-check-label" for="edit-active-off">Disabled</label>
+						  </div>
+						  <input type="hidden" id="menu-id">
+						  <div class="button">
+							  <button class="btn btn-md btn-primary" type="button" onclick="saveMenu()">Zapisz</button>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				  </div>
+				  <!-- End -->
+			  </div>
+			  <div class="tab-pane fade" id="sections" role="tabpanel" aria-labelledby="sections-tab">
+				  <!-- Sections List -->
+				  <div class="itemContent" id="sectionsList">
+					<div class="row">
+					  <div class="col-md-5">
+						<table class="table">
+						  <thead>
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Menu</th>
+							  <th scope="col">Sequence</th>
+							  <th scope="col">Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>
+						<button class="btn btn-md btn-block btn-default" type="button" onclick="addSection()">Dodaj</button>
+					  </div>
+					  <div class="col-md-7">
+						<form class="form" id="sectionForm" method="POST">
+						  <div class="form-group">
+							  <label for="link">Menu Id:</label>
+							  <select id="link-id" name="link" class="form-control"></select>
+						  </div>
+						  <div class="form-group">
+							  <label for="content">Content:</label>
+							  <textarea id="edit-contents" name="content" class="form-control" required></textarea>
+						  </div>
+						  <div class="form-group">
+							  <label for="order">Sequence:</label>
+							  <input type="number" id="edit-order" name="order" class="form-control" required />
+						  </div>
+						  <div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="visible" id="edit-visible-on" value="1">
+							  <label class="form-check-label" for="edit-visible-on">Enabled</label>
+						  </div>
+						  <div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="visible" id="edit-visible-off" value="0">
+							  <label class="form-check-label" for="edit-visible-off">Disabled</label>
+						  </div>
+						  <input type="hidden" id="section-id">
+						  <div class="button">
+							  <button class="btn btn-md btn-primary" type="button" onclick="saveSection()">Zapisz</button>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				  </div>
+				  <!-- End -->
+			  </div>
+			  <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+				  <!-- Images List -->
+				  <div class="itemContent" id="imagesList">
+					<div class="row">
+					  <div class="col-md-7">
+						<table class="table">
+						  <thead>
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Filename</th>
+							  <th scope="col">Type</th>
+							  <th scope="col">Size</th>
+							  <th scope="col">Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>
+					  </div>
+					  <div class="col-md-5">
+						<form class="form" id="imageForm" method="POST" enctype="multipart/form-data">
+						  <div class="form-group">
+							  <label for="preview">Podgląd:</label><br>
+							  <span id="previewImage"><img src=""></span>
+						  </div>
+						  <div class="form-group">
+							  <label for="imageId">#</label><span id="imageId" class="imageDetails"></span>
+							  <label for="imageName">: &nbsp;</label><span id="imageName" class="imageDetails"></span>
+						  </div>
+						  <div class="form-group">
+							  <label for="fileToUpload">Dodaj nowy obrazek:</label><br>
+							  <input type="file" id="fileToUpload" name="fileToUpload">
+						  </div>
+						  <div class="button">
+							  <button class="btn btn-md btn-primary" type="button" id="upload" name="submit" onclick="uploadImage()">Wyślij</button>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				  </div>
+				  <!-- End -->
+			  </div>
+			</div>
+			<!-- Nav Tab End -->
           <!-- Modal Confirmation -->
           <div class="modal" id="removeConfirm" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
@@ -378,10 +389,6 @@
 
   <!-- Admin Page Script -->
   <script src="js/page.js"></script>
-  <!-- Third party plugin JS-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-  <!-- Page Scrolling -->
-  <script src="js/scrolling.js"></script>
 
   <!-- Custom Styles -->
   <style id="customStyle"></style>
