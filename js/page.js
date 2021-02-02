@@ -63,7 +63,7 @@ const page = {
 };
 
 function sendMessage(contactForm) {
-    const $formInputs = contactForm.getElementsByClassName('form-control');
+    const $formInputs = contactForm.find('.form-control');
     var formData = {}, sendLock = false;
     $.each($formInputs, function(idx, item) {
         formData[item.getAttribute('id')] = item.value;
@@ -77,12 +77,11 @@ function sendMessage(contactForm) {
         type: "POST",
         data: formData,
         cache: false,
-        success: function () {
-            $('div#success').html("<div class='alert alert-success'>Your message has been sent successfully.<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button></div>");
-            $("#contactForm").trigger("reset");
-        },
-        error: function () {
-            $('div#success').html("<div class='alert alert-danger'>Mail server is not responding.<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button></div>");
+        success: function (response) {
+            const ready = JSON.parse(response.substring(response.indexOf('{')));
+            const type = ready.result ? 'success' : 'danger';
+            const msg = ready.message;
+            $('div#success').html("<div class='alert alert-" + type + "'>" + msg + "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button></div>");
             $("#contactForm").trigger("reset");
         },
         complete: function () {
