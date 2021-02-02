@@ -67,7 +67,7 @@ function animateProgress() {
 }
 
 function showMessage(type, message) {
-    $('div#messages').show();
+    $('div#alerts').show();
     $('div.alert').hide();
     if (type == MSG.SUCCESS) {
         $('div.alert-success').text(message).show();
@@ -75,7 +75,7 @@ function showMessage(type, message) {
     if (type == MSG.FAILURE) {
         $('div.alert-danger').text(message).show();
     }
-    setTimeout(function() { $('div.alert').hide(); $('div#messages').hide(); }, MSG.delay);
+    setTimeout(function() { $('div.alert').hide(); $('div#alerts').hide(); }, MSG.delay);
 }
 
 function showPreview() {

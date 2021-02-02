@@ -38,7 +38,7 @@ div#mainContent div.registerForm form#mainRegisterForm div.button button.btn {
 	margin: 5px 0;
 }
 
-div#messages {
+div#alerts {
 	position: fixed;
 	left: 0;
 	bottom: 2em;
@@ -47,7 +47,7 @@ div#messages {
 	display: none;
 }
 
-div#messages div.alert {
+div#alerts div.alert {
 	text-align: center;
 	display: none;
 }
