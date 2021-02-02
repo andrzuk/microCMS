@@ -139,13 +139,14 @@ function showAdminPanel() {
     $('li.logged-out').hide();
     $('li.logged-in').show();
     $('div#masterTabs').show();
-    $('div.itemContent').hide();
-    $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#imagesList').fadeIn();
+    $('div.itemContent').show();
+    $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#imagesList, div#messagesList').fadeIn();
     loadUsersList();
     loadPartsList();
     loadMenusList();
     loadSectionsList();
     loadImagesList();
+    loadMessagesList();
 }
 
 function loadUsersList() {
@@ -161,7 +162,8 @@ function loadUsersList() {
                 const data = JSON.parse(response.substring(response.indexOf('{')));
                 $.each(data.result, function(idx, item) {
                     const status = parseInt(item.active) ? 'normal' : 'locked';
-                    const $row = $('<tr class="'+status+'"><th scope="row">'+item.id+'</th><td>'+item.login+'</td><td>'+item.email+'</td><td>'+item.role+'</td><td>'+item.logged_in+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillUser('+item.id+')">Edytuj</button><button class="btn btn-sm btn-info" onclick="changePassword('+item.id+')">Hasło</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'users\', '+item.id+')">Usuń</button></td></tr>');
+                    const role = item.role == 1 ? 'ADMIN' : (item.role == 2 ? 'OPER' : (item.role == 3 ? 'USER' : (item.role == 4 ? 'GUES' : null)));
+                    const $row = $('<tr class="'+status+'"><th scope="row">'+item.id+'</th><td>'+item.login+'</td><td>'+item.email+'</td><td>'+role+'</td><td>'+item.logged_in+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillUser('+item.id+')">Edytuj</button><button class="btn btn-sm btn-info" onclick="changePassword('+item.id+')">Hasło</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'users\', '+item.id+')">Usuń</button></td></tr>');
                     $('div#usersList table tbody').append($row);
                 });
             },
@@ -679,6 +681,64 @@ function removeImage(id) {
     }
 }
 
+function loadMessagesList() {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_messages.php',
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                $('div#messagesList table tbody').html(null);
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $.each(data.result, function(idx, item) {
+                    const $row = $('<tr><th scope="row">'+item.id+'</th><td>'+item.name.substring(0, 32)+'</td><td>'+item.email.substring(0, 32)+'</td><td>'+item.sent+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillMessage('+item.id+')">Pokaż</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'messages\', '+item.id+')">Usuń</button></td></tr>');
+                    $('div#messagesList table tbody').append($row);
+                });
+            },
+        });
+    }
+}
+
+function fillMessage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_message.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $('form#messageForm input#message-name').val(data.result.name);
+                $('form#messageForm input#message-email').val(data.result.email);
+                $('form#messageForm textarea#message-content').val(data.result.content);
+            },
+        });
+    }
+}
+
+function removeMessage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/remove_message.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                if (data.success) {
+                    $('form#messageForm input, form#messageForm textarea').val(null);
+                    loadMessagesList();
+                    showMessage(MSG.SUCCESS, data.message);
+                }
+                else {
+                    showMessage(MSG.FAILURE, data.message);
+                }
+            },
+        });
+    }
+}
+
 function removeConfirm(table, id) {
     $('div#removeConfirm').modal();
     $('div#removeConfirm button#confirm').unbind('click').on('click', function() {
@@ -694,11 +754,14 @@ function removeConfirm(table, id) {
         if (table == 'sections') {
             removeSection(id);
         }
+        if (table == 'messages') {
+            removeMessage(id);
+        }
     });
 }
 
 function showMessage(type, message) {
-    $('div#messages').show();
+    $('div#alerts').show();
     $('div.alert').hide();
     if (type == MSG.SUCCESS) {
         $('div.alert-success').text(message).show();
@@ -706,7 +769,7 @@ function showMessage(type, message) {
     if (type == MSG.FAILURE) {
         $('div.alert-danger').text(message).show();
     }
-    setTimeout(function() { $('div.alert').hide(); $('div#messages').hide(); }, MSG.delay);
+    setTimeout(function() { $('div.alert').hide(); $('div#alerts').hide(); }, MSG.delay);
 }
 
 $(document).ready(function() {
