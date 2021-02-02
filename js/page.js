@@ -62,6 +62,37 @@ const page = {
     },
 };
 
+function sendMessage(contactForm) {
+    const $formInputs = contactForm.getElementsByClassName('form-control');
+    var formData = {}, sendLock = false;
+    $.each($formInputs, function(idx, item) {
+        formData[item.getAttribute('id')] = item.value;
+        if (!item.value) sendLock = true;
+    });
+    if (sendLock) return;
+    $this = $("#sendMessageButton");
+    $this.prop("disabled", true);
+    $.ajax({
+        url: API.url + 'contact.php',
+        type: "POST",
+        data: formData,
+        cache: false,
+        success: function () {
+            $('div#success').html("<div class='alert alert-success'>Your message has been sent successfully.<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button></div>");
+            $("#contactForm").trigger("reset");
+        },
+        error: function () {
+            $('div#success').html("<div class='alert alert-danger'>Mail server is not responding.<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button></div>");
+            $("#contactForm").trigger("reset");
+        },
+        complete: function () {
+            setTimeout(function () {
+                $this.prop("disabled", false);
+            }, 1000);
+        },
+    });
+}
+
 $(document).ready(function() {
     page.getReady(function(ready) {
         if (ready) {
