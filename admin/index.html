@@ -94,6 +94,9 @@
 			  <li class="nav-item">
 				<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
 			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a>
+			  </li>
 			</ul>
 			<!-- Nav Tab End -->
 		  </div>
@@ -345,7 +348,46 @@
 				  </div>
 				  <!-- End -->
 			  </div>
+			  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+				<!-- Messages List -->
+				<div class="itemContent" id="messagesList">
+				  <div class="row">
+					<div class="col-md-7">
+					  <table class="table">
+						<thead>
+						  <tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Sent</th>
+							<th scope="col">Action</th>
+						  </tr>
+						</thead>
+						<tbody>
+						</tbody>
+					  </table>
+					</div>
+					<div class="col-md-5">
+						<form class="form" id="messageForm">
+							<div class="form-group">
+								<label for="name">Name:</label>
+								<input type="text" id="message-name" name="name" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="email">Email:</label>
+								<input type="text" id="message-email" name="email" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="content">Content:</label>
+								<textarea id="message-content" name="content" class="form-control"></textarea>
+							</div>
+						</form>
+					</div>
+				  </div>
+				</div>
+				<!-- End -->
 			</div>
+		  </div>
 			<!-- Nav Tab End -->
           <!-- Modal Confirmation -->
           <div class="modal" id="removeConfirm" tabindex="-1">
@@ -373,7 +415,7 @@
     </div>
   </div>
   <!-- Alerts -->
-  <div id="messages">
+  <div id="alerts">
     <div class="alert alert-success" role="alert">
       A simple success alert—check it out!
     </div>
