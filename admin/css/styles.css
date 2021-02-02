@@ -79,7 +79,7 @@ div#mainContent div.itemContent button.btn-default {
 }
 
 div#mainContent div.itemContent table.table button.btn {
-	margin: 1px;
+	margin: 0 2px;
 }
 
 div#mainContent div.itemContent form.form {
@@ -125,7 +125,7 @@ div#mainContent div.modal-content {
 	color: #c00;
 }
 
-div#messages {
+div#alerts {
 	position: fixed;
 	left: 0;
 	bottom: 2em;
@@ -134,7 +134,7 @@ div#messages {
 	display: none;
 }
 
-div#messages div.alert {
+div#alerts div.alert {
 	text-align: center;
 	display: none;
 }
