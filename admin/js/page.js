@@ -140,11 +140,12 @@ function showAdminPanel() {
     $('li.logged-in').show();
     $('div#masterTabs').show();
     $('div.itemContent').show();
-    $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#imagesList, div#messagesList').fadeIn();
+    $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#pagesList, div#imagesList, div#messagesList').fadeIn();
     loadUsersList();
     loadPartsList();
     loadMenusList();
     loadSectionsList();
+    loadPagesList();
     loadImagesList();
     loadMessagesList();
 }
@@ -591,6 +592,102 @@ function removeSection(id) {
     }
 }
 
+function loadPagesList() {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_pages.php',
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                $('div#pagesList table tbody').html(null);
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $.each(data.result, function(idx, item) {
+                    const $row = $('<tr><th scope="row">'+item.id+'</th><td>'+item.page_index+'</td><td>'+item.title+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillPage('+item.id+')">Edytuj</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'pages\', '+item.id+')">Usuń</button></td></tr>');
+                    $('div#pagesList table tbody').append($row);
+                });
+            },
+        });
+    }
+}
+
+function addPage() {
+    $('form#pageForm input#page-id').val(0);
+    $('form#pageForm input#page-index').val(null);
+    $('form#pageForm input#page-title').val(null);
+	$('form#pageForm textarea#page-content').val(null);
+    $('form#pageForm input#page-index').focus();
+}
+
+function fillPage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_page.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $('form#pageForm input#page-id').val(data.result.id);
+                $('form#pageForm input#page-index').val(data.result.page_index);
+                $('form#pageForm input#page-title').val(data.result.title);
+                $('form#pageForm textarea#page-content').val(data.result.content).focus();
+            },
+        });
+    }
+}
+
+function savePage() {
+    const page = {
+        id: $('form#pageForm input#page-id').val(),
+        page_index: $('form#pageForm input#page-index').val(),
+        title: $('form#pageForm input#page-title').val(),
+        content: $('form#pageForm textarea#page-content').val(),
+    };
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + (page.id == 0 ? 'admin/add_page.php' : 'admin/update_page.php'),
+            headers: { 'X-Auth-Token': token },
+            data: page,
+            type: 'POST',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                if (data.success) {
+                    $('form#pageForm input, form#pageForm textarea').val(null);
+                    loadPagesList();
+                    showMessage(MSG.SUCCESS, data.message);
+                }
+                else {
+                    showMessage(MSG.FAILURE, data.message);
+                }
+            },
+        });
+    }
+}
+
+function removePage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/remove_page.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                if (data.success) {
+                    $('form#pageForm input, form#pageForm textarea').val(null);
+                    loadPagesList();
+                    showMessage(MSG.SUCCESS, data.message);
+                }
+                else {
+                    showMessage(MSG.FAILURE, data.message);
+                }
+            },
+        });
+    }
+}
+
 function loadImagesList() {
     const token = localStorage.getItem(API.accessToken);
     if (token) {
@@ -753,6 +850,9 @@ function removeConfirm(table, id) {
         }
         if (table == 'sections') {
             removeSection(id);
+        }
+        if (table == 'pages') {
+            removePage(id);
         }
         if (table == 'messages') {
             removeMessage(id);
