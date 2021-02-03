@@ -20,7 +20,7 @@ $statement->execute();
 
 $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-$app_tables = array('roles', 'users', 'menu', 'sections', 'parts', 'images', 'messages');
+$app_tables = array('roles', 'users', 'menu', 'sections', 'parts', 'pages', 'images', 'messages');
 
 $result = count($rows) == count($app_tables);
 
