@@ -16,7 +16,7 @@ const page = {
         $.get(API.url + 'get_menu.php', function(response, status) {
             const menu = JSON.parse(response.substring(response.indexOf('{')));
             $.each(menu.data, function(idx, item) {
-                const $link = '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#menu-'+item.id+'">'+item.caption+'</a></li>';
+                const $link = '<li class="nav-item"><a class="nav-link js-scroll-trigger" id="top-menu-'+item.id+'" href="#menu-'+item.id+'">'+item.caption+'</a></li>';
                 $('nav#mainNav div#navbarResponsive ul.navbar-nav').append($link);
             });            
             pageScrolling();
@@ -59,6 +59,20 @@ const page = {
                 $('script#customScript').html($part.data.content);
             }
         });
+    },
+    goToSection: function() {
+        const pageUrl = window.location.href;
+        if (pageUrl.indexOf('/#section-') !== -1) {
+            const id = pageUrl.substring(pageUrl.indexOf('/#section-') + 10);
+            const sectionUrl = pageUrl.replace('/#section', '/#menu');
+            window.location.href = sectionUrl;
+            $(document).ready(function() {
+                setTimeout(function() { $('a#top-menu-' + id).click(); }, 100);
+            });
+        }
+    },
+    loadContent: function(index) {
+        window.location.href = '/pages/#' + index;
     },
 };
 
@@ -105,6 +119,7 @@ $(document).ready(function() {
             page.getPart('footer');        
             page.getPart('style');
             page.getPart('script');
+            page.goToSection();
         }
         else {
             page.showInstall();
