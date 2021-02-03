@@ -10,5 +10,5 @@ Installation steps:
 - write down these data into config file '/config/config.php'
 - open URL of your domain address in web browser
 - click button 'Install Backend of Application' and register yourself as ADMIN.
-
+On-line: http://micro-cms.pl
 
