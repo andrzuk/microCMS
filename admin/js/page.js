@@ -4,6 +4,7 @@ const API = {
 };
 
 const MSG = { SUCCESS: 1, FAILURE: 2, delay: 5000 };
+const ENTER = 13, ESCAPE = 27;
 
 const page = {
     getReady: function(callback) {
@@ -64,7 +65,6 @@ function showLoginForm() {
     $('div#loginForm').fadeIn(function() {
         setTimeout(function () { $('input#email').focus(); }, 500);
         $('form#mainLoginForm input').on('keydown', function(event) {
-            const ENTER = 13, ESCAPE = 27;
             if (event.keyCode == ENTER) {
                 event.preventDefault();
                 loginUser();
