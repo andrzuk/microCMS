@@ -1,7 +1,13 @@
 <?php
 
 /*
- * Domain Database connection
+ * Domain URL
+ */
+ 
+define ('DOMAIN_URL', 'http://domain.com');  // website domain url
+
+/*
+ * Database connection
  */
  
 define ('DB_HOST', '');  // db hostname
