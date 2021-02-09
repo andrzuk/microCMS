@@ -24,7 +24,7 @@ const page = {
             const content = JSON.parse(response.substring(response.indexOf('{')));
             const $section = '<section class="page-section bg-light" id="'+content.data.page_index+'">'+content.data.content+'</section>';
             $('body#page-top div#mainContent').html($section);
-            setTimeout(function() { location.href = '#page-' + index; }, 100);
+            setTimeout(function() { location.href = '#page-' + index; }, 1000);
         });
     },
     getPart: function(name) {
