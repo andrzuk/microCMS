@@ -70,6 +70,31 @@
                           <button class="btn btn-lg btn-warning" type="button" onclick="showPreview()">Anuluj</button>
                       </div>
                   </form>
+                  <div class="text-center mt-3">
+                      <a href="#" onclick="showRemindForm()">Nie pamiętam hasła</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <!-- End -->
+          <!-- Remind Form -->
+          <div class="remindForm" id="remindForm">
+            <div class="row">
+              <div class="col-md-4 mx-auto">
+                  <form class="form" id="mainRemindForm" method="POST">
+                      <h3 class="mb-4">Weryfikacja</h3>
+                      <div class="form-group">
+                          <label for="email">Email:</label>
+                          <input type="text" id="remind-email" name="email" class="form-control" required />
+                      </div>
+                      <div class="button">
+                          <button class="btn btn-lg btn-primary" type="button" onclick="remindUser()">Wyślij</button>
+                          <button class="btn btn-lg btn-warning" type="button" onclick="showPreview()">Anuluj</button>
+                      </div>
+                  </form>
+                  <div class="text-center mt-3">
+                      <a href="#" onclick="showLoginForm()">Chcę się zalogować</a>
+                  </div>
               </div>
             </div>
           </div>
