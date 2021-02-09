@@ -42,6 +42,33 @@ div#mainContent div.loginForm form#mainLoginForm div.button button.btn {
 	margin: 5px 0;
 }
 
+div#mainContent div.remindForm {
+	text-align: left;
+	color: #666;
+	padding-top: 2em;
+	display: none;
+}
+
+div#mainContent div.remindForm form#mainRemindForm {
+	margin: 7em 0 0 0;
+	padding: 2em;
+	text-align: left;
+	color: #666;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+div#mainContent div.remindForm form#mainRemindForm div.button {
+	padding-top: 1em;
+	text-align: right;
+}
+
+div#mainContent div.remindForm form#mainRemindForm div.button button.btn {
+	width: 120px;
+	margin: 5px 0;
+}
+
 div#mainContent div.itemContent {
 	text-align: left;
 	color: #666;
