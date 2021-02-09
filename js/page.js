@@ -67,7 +67,7 @@ const page = {
             const sectionUrl = pageUrl.replace('/#section', '/#menu');
             window.location.href = sectionUrl;
             $(document).ready(function() {
-                setTimeout(function() { $('a#top-menu-' + id).click(); }, 100);
+                setTimeout(function() { $('a#top-menu-' + id).click(); }, 1000);
             });
         }
     },
