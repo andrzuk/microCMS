@@ -274,8 +274,8 @@ if (!empty($email) && !empty($password)) {
 
 	$token = hash('sha256', uniqid());
 
-	$query = 'INSERT INTO users (login, email, password, role, logged_in, active, token)' .
-	'         VALUES (:login, :email, :password, :role, NOW(), :active, :token)';
+	$query = 'INSERT INTO users (login, email, password, role, registered, logged_in, active, token)' .
+	'         VALUES (:login, :email, :password, :role, NOW(), NOW(), :active, :token)';
 
 	$statement = $db_connection->prepare($query);
 	$statement->bindParam(':login', $login, PDO::PARAM_STR);
