@@ -62,9 +62,10 @@ function showLoginForm() {
     $('li.logged-in').hide();
     $('div#masterTabs').hide();
     $('div.itemContent').hide();
+    $('div#remindForm').hide();
     $('div#loginForm').fadeIn(function() {
         setTimeout(function () { $('input#email').focus(); }, 500);
-        $('form#mainLoginForm input').on('keydown', function(event) {
+        $('form#mainLoginForm input').unbind('keydown').on('keydown', function(event) {
             if (event.keyCode == ENTER) {
                 event.preventDefault();
                 loginUser();
@@ -129,6 +130,47 @@ function logoutUser() {
     }
 }
 
+function showRemindForm() {
+    $('li.logged-out').show();
+    $('li.logged-in').hide();
+    $('div#masterTabs').hide();
+    $('div.itemContent').hide();
+    $('div#loginForm').hide();
+    $('div#remindForm').fadeIn(function() {
+        setTimeout(function () { $('input#remind-email').focus(); }, 500);
+        $('form#mainRemindForm input').unbind('keydown').on('keydown', function(event) {
+            if (event.keyCode == ENTER) {
+                event.preventDefault();
+                remindUser();
+            }
+            if (event.keyCode == ESCAPE) {
+                event.preventDefault();
+                showPreview();
+            }
+        });
+    });
+}
+
+function remindUser() {
+    const credentials = {
+        'email': $('form#mainRemindForm input[name=email]').val(),
+    };
+    $.post(API.url + 'remind.php', credentials, function(response, status) {
+        const result = JSON.parse(response.substring(response.indexOf('{')));
+        if (result.success) {
+            showLoginForm();
+            showMessage(MSG.SUCCESS, result.message);
+        }
+        else {
+            showRemindForm();
+            showMessage(MSG.FAILURE, result.message);
+        }
+    });
+    $('div#remindForm').fadeOut(function() {
+        $('form#mainRemindForm input').val(null);
+    });
+}
+
 function showPreview() {
     const adminUrl = window.location.href;
     const pageUrl = adminUrl.replace('/admin', '');
@@ -138,9 +180,11 @@ function showPreview() {
 function showAdminPanel() {
     $('li.logged-out').hide();
     $('li.logged-in').show();
-    $('div#masterTabs').show();
-    $('div.itemContent').show();
-    $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#pagesList, div#imagesList, div#messagesList').fadeIn();
+    setTimeout(function() {
+        $('div#masterTabs').show();		
+        $('div.itemContent').show();
+        $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#pagesList, div#imagesList, div#messagesList').fadeIn();
+    }, 500);
     loadUsersList();
     loadPartsList();
     loadMenusList();
