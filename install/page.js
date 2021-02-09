@@ -52,7 +52,7 @@ function registerUser() {
 }
 
 function animateProgress() {
-    const delta = 10;
+    const delta = 25;
     function step(percent) {
         $('div#progress div.progress-bar').css('width', percent + '%').attr('aria-valuenow', percent);
         $('div#progress div.percent').text(percent + '%');
@@ -61,7 +61,7 @@ function animateProgress() {
             if (percent <= 100) {
                 step(percent);
             }
-        }, 50);
+        }, 10);
     }
     step(0);
 }
