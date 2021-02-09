@@ -6,8 +6,9 @@ To enable uploading images you have to set attribute 777 for folder '/upload'.
 Front web page is based on free responsive template. Admin Panel also! :)
 ## Installation steps:
 - upload project files to hosting to 'public_html' folder
+- write down your website URL into config file '/config/config.php' in section 'Domain URL'
 - create empty MySQL database (and remember database name, user and password)
-- write down these data into config file '/config/config.php'
+- write down these data into config file '/config/config.php' in section 'Database connection'
 - open URL of your domain address in web browser
 - click button 'Install Backend of Application' and register yourself as ADMIN.
 ## On-line: http://micro-cms.pl
