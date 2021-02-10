@@ -24,25 +24,46 @@ if (!empty($id) && !empty($login) && !empty($email) && !empty($role) && !empty($
 	
 	if (check_access($required_level, $token, $db_connection)) {
 
-		$query = 'UPDATE users' .
-		'         SET login = :login, email = :email, role = :role, active = :active' .
-		'         WHERE id = :id';
+		$query = 'SELECT COUNT(*) AS counter FROM users' .
+		'         WHERE (login = :login OR email = :email)' .
+		'         AND id <> :id';
 
 		$statement = $db_connection->prepare($query);
+
 		$statement->bindParam(':login', $login, PDO::PARAM_STR);
 		$statement->bindParam(':email', $email, PDO::PARAM_STR);
-		$statement->bindParam(':role', $role, PDO::PARAM_INT);
-		$statement->bindParam(':active', $active, PDO::PARAM_INT);
 		$statement->bindParam(':id', $id, PDO::PARAM_INT);
 
 		$statement->execute();
 		
-		if ($statement->rowCount()) {
-			$message = 'Użytkownik został poprawnie zapisany.';
-			$success = true;
-		} 
+		$row = $statement->fetch(PDO::FETCH_ASSOC);
+		
+		if ($row['counter'] == 0) {
+
+			$query = 'UPDATE users' .
+			'         SET login = :login, email = :email, role = :role, active = :active' .
+			'         WHERE id = :id';
+
+			$statement = $db_connection->prepare($query);
+			$statement->bindParam(':login', $login, PDO::PARAM_STR);
+			$statement->bindParam(':email', $email, PDO::PARAM_STR);
+			$statement->bindParam(':role', $role, PDO::PARAM_INT);
+			$statement->bindParam(':active', $active, PDO::PARAM_INT);
+			$statement->bindParam(':id', $id, PDO::PARAM_INT);
+
+			$statement->execute();
+			
+			if ($statement->rowCount()) {
+				$message = 'Użytkownik został poprawnie zapisany.';
+				$success = true;
+			} 
+			else {
+				$message = 'Użytkownik nie został zapisany.';
+				$success = false;
+			}
+		}
 		else {
-			$message = 'Użytkownik nie został zapisany.';
+			$message = 'Podany Login lub Email już występuje.';
 			$success = false;
 		}
 	}
