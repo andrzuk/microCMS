@@ -184,6 +184,10 @@ function showAdminPanel() {
         $('div#masterTabs').show();		
         $('div.itemContent').show();
         $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#pagesList, div#imagesList, div#messagesList').fadeIn();
+        $('div.itemContent form input').prop('disabled', true);
+        $('div.itemContent form textarea').prop('disabled', true);
+        $('div.itemContent form select').prop('disabled', true);
+        $('div.itemContent form button').prop('disabled', true);
     }, 500);
     loadUsersList();
     loadPartsList();
@@ -217,6 +221,10 @@ function loadUsersList() {
 }
 
 function addUser() {
+    $('div#usersList form#userForm input').prop('disabled', null);
+    $('div#usersList form#userForm button').prop('disabled', null);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
     $('form#userForm input#user-id').val(0);
     $('form#userForm input#edit-login').val(null);
     $('form#userForm input#edit-email').val(null);
@@ -245,6 +253,10 @@ function fillUser(id) {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', null);
+    $('div#usersList form#userForm button').prop('disabled', null);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
 }
 
 function saveUser() {
@@ -275,6 +287,10 @@ function saveUser() {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', true);
+    $('div#usersList form#userForm button').prop('disabled', true);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
 }
 
 function changePassword(id) {
@@ -291,6 +307,10 @@ function changePassword(id) {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', true);
+    $('div#usersList form#userForm button').prop('disabled', true);
+    $('div#usersList form#passwordForm input').prop('disabled', null);
+    $('div#usersList form#passwordForm button').prop('disabled', null);
 }
 
 function savePassword() {
@@ -317,6 +337,10 @@ function savePassword() {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', true);
+    $('div#usersList form#userForm button').prop('disabled', true);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
 }
 
 function removeUser(id) {
@@ -375,6 +399,9 @@ function fillPart(id) {
             },
         });
     }
+    $('div#partsList form#partForm input').prop('disabled', null);
+    $('div#partsList form#partForm textarea').prop('disabled', null);
+    $('div#partsList form#partForm button').prop('disabled', null);
 }
 
 function savePart() {
@@ -403,6 +430,9 @@ function savePart() {
             },
         });
     }
+    $('div#partsList form#partForm input').prop('disabled', true);
+    $('div#partsList form#partForm textarea').prop('disabled', true);
+    $('div#partsList form#partForm button').prop('disabled', true);
 }
 
 function loadMenusList() {
@@ -426,6 +456,8 @@ function loadMenusList() {
 }
 
 function addMenu() {
+    $('div#menusList form#menuForm input').prop('disabled', null);
+    $('div#menusList form#menuForm button').prop('disabled', null);
     $('form#menuForm input#menu-id').val(0);
     $('form#menuForm input#edit-caption').val(null);
     $('form#menuForm input#edit-sequence').val(null);
@@ -452,6 +484,8 @@ function fillMenu(id) {
             },
         });
     }
+    $('div#menusList form#menuForm input').prop('disabled', null);
+    $('div#menusList form#menuForm button').prop('disabled', null);
 }
 
 function saveMenu() {
@@ -481,6 +515,8 @@ function saveMenu() {
             },
         });
     }
+    $('div#menusList form#menuForm input').prop('disabled', true);
+    $('div#menusList form#menuForm button').prop('disabled', true);
 }
 
 function removeMenu(id) {
@@ -548,6 +584,10 @@ function addSection() {
             },
         });
     }
+    $('div#sectionsList form#sectionForm input').prop('disabled', null);
+    $('div#sectionsList form#sectionForm textarea').prop('disabled', null);
+    $('div#sectionsList form#sectionForm select').prop('disabled', null);
+    $('div#sectionsList form#sectionForm button').prop('disabled', null);
 }
 
 function fillSection(id) {
@@ -582,6 +622,10 @@ function fillSection(id) {
             },
         });
     }
+    $('div#sectionsList form#sectionForm input').prop('disabled', null);
+    $('div#sectionsList form#sectionForm textarea').prop('disabled', null);
+    $('div#sectionsList form#sectionForm select').prop('disabled', null);
+    $('div#sectionsList form#sectionForm button').prop('disabled', null);
 }
 
 function saveSection() {
@@ -612,6 +656,10 @@ function saveSection() {
             },
         });
     }
+    $('div#sectionsList form#sectionForm input').prop('disabled', true);
+    $('div#sectionsList form#sectionForm textarea').prop('disabled', true);
+    $('div#sectionsList form#sectionForm select').prop('disabled', true);
+    $('div#sectionsList form#sectionForm button').prop('disabled', true);
 }
 
 function removeSection(id) {
@@ -656,6 +704,9 @@ function loadPagesList() {
 }
 
 function addPage() {
+    $('div#pagesList form#pageForm input').prop('disabled', null);
+    $('div#pagesList form#pageForm textarea').prop('disabled', null);
+    $('div#pagesList form#pageForm button').prop('disabled', null);
     $('form#pageForm input#page-id').val(0);
     $('form#pageForm input#page-index').val(null);
     $('form#pageForm input#page-title').val(null);
@@ -679,6 +730,9 @@ function fillPage(id) {
             },
         });
     }
+    $('div#pagesList form#pageForm input').prop('disabled', null);
+    $('div#pagesList form#pageForm textarea').prop('disabled', null);
+    $('div#pagesList form#pageForm button').prop('disabled', null);
 }
 
 function savePage() {
@@ -708,6 +762,9 @@ function savePage() {
             },
         });
     }
+    $('div#pagesList form#pageForm input').prop('disabled', true);
+    $('div#pagesList form#pageForm textarea').prop('disabled', true);
+    $('div#pagesList form#pageForm button').prop('disabled', true);
 }
 
 function removePage(id) {
@@ -751,6 +808,11 @@ function loadImagesList() {
     }
 }
 
+function addImage() {
+    $('div#imagesList form#imageForm input').prop('disabled', null);
+    $('div#imagesList form#imageForm button').prop('disabled', null);
+}
+
 function uploadImage() {
     var file_data = $('#fileToUpload').prop('files')[0];
     var form_data = new FormData();
@@ -779,6 +841,8 @@ function uploadImage() {
             },
         });
     }
+    $('div#imagesList form#imageForm input').prop('disabled', true);
+    $('div#imagesList form#imageForm button').prop('disabled', true);
 }
 
 function showImage(id) {
@@ -796,6 +860,8 @@ function showImage(id) {
             },
         });
     }
+    $('div#imagesList form#imageForm input').prop('disabled', true);
+    $('div#imagesList form#imageForm button').prop('disabled', true);
 }
 
 function removeImage(id) {
@@ -902,6 +968,10 @@ function removeConfirm(table, id) {
             removeMessage(id);
         }
     });
+    $('div.itemContent form input').prop('disabled', true);
+    $('div.itemContent form textarea').prop('disabled', true);
+    $('div.itemContent form select').prop('disabled', true);
+    $('div.itemContent form button').prop('disabled', true);
 }
 
 function showMessage(type, message) {
