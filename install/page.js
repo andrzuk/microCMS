@@ -33,26 +33,26 @@ function registerUser() {
             localStorage.setItem(API.accessToken, result.user.access_token);
             localStorage.setItem('userName', result.user.name);
             localStorage.setItem('userEmail', result.user.email);
-            showPreview();
+            setTimeout(function() { showPreview(); }, 2000);
             showMessage(MSG.SUCCESS, result.message);
+            $('div#progress').show();
+            animateProgress();
         }
         else {
             localStorage.removeItem(API.accessToken);
             localStorage.removeItem('userName');
             localStorage.removeItem('userEmail');
-            showRegisterForm();
+            setTimeout(function() { showRegisterForm(); }, 1000);
             showMessage(MSG.FAILURE, result.message);
         }
     });
     $('div#registerForm').fadeOut(function() {
         $('form#mainRegisterForm input').val(null);
-        $('div#progress').show();
-        animateProgress();
     });
 }
 
 function animateProgress() {
-    const delta = 25;
+    const delta = 50;
     function step(percent) {
         $('div#progress div.progress-bar').css('width', percent + '%').attr('aria-valuenow', percent);
         $('div#progress div.percent').text(percent + '%');
@@ -61,7 +61,7 @@ function animateProgress() {
             if (percent <= 100) {
                 step(percent);
             }
-        }, 10);
+        }, 500);
     }
     step(0);
 }
@@ -85,5 +85,5 @@ function showPreview() {
 }
 
 $(document).ready(function() {
-	showRegisterForm();
+    showRegisterForm();
 });
