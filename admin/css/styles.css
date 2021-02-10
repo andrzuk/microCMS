@@ -23,7 +23,7 @@ div#mainContent div.loginForm {
 }
 
 div#mainContent div.loginForm form#mainLoginForm {
-	margin: 7em 0 0 0;
+	margin: 0;
 	padding: 2em;
 	text-align: left;
 	color: #666;
@@ -50,7 +50,7 @@ div#mainContent div.remindForm {
 }
 
 div#mainContent div.remindForm form#mainRemindForm {
-	margin: 7em 0 0 0;
+	margin: 0;
 	padding: 2em;
 	text-align: left;
 	color: #666;
@@ -132,8 +132,9 @@ div#mainContent div.itemContent form.form textarea.form-control {
 div#mainContent div.itemContent form#imageForm span#previewImage {
 	border: 1px solid #ccc;
 	padding: 2px;
-	display: block;
+	display: flex;
 	text-align: center;
+	min-height: 200px;
 }
 
 div#mainContent div.itemContent form#imageForm span#previewImage img {
