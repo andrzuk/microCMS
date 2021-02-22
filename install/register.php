@@ -242,7 +242,8 @@ if (!empty($email) && !empty($password)) {
 			(5, 'description', 'Native CMS - super slim and fast Micro CMS based on free RWD templates and jQuery scrips on frontend and PHP / MySQL on backend. Admin Panel included.'),
 			(6, 'author', 'Andrzej Żukowski'),
 			(7, 'script', 'setTimeout(function() {\n$(\'h3\').css({ color: \'#090\', \'text-decoration\': \'underline\' });\n}, 200);'),
-			(8, 'style', 'body {\nmargin: inherit;\npadding: inherit;\nbackground: inherit;\n}\nfooter {\nbackground-color: darkgrey;\ncolor: white;\n}\n#mainNav .navbar-nav .nav-item .nav-link {\nfont-weight: bold;\nfont-size: medium;\n}\n');
+			(8, 'style', 'body {\nmargin: inherit;\npadding: inherit;\nbackground: inherit;\n}\nfooter {\nbackground-color: darkgrey;\ncolor: white;\n}\n#mainNav .navbar-nav .nav-item .nav-link {\nfont-weight: bold;\nfont-size: medium;\n}\n'),
+			(9, 'analytics', '<!-- Global site tag (gtag.js) - Google Analytics -->\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-2M79NRWZCQ\"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){ dataLayer.push(arguments); }\n  gtag(\'js\', new Date());\n  gtag(\'config\', \'G-2M79NRWZCQ\');\n</script>\n');
 		",
 		"
 			INSERT INTO `pages` (`id`, `page_index`, `title`, `content`, `modified`) VALUES
