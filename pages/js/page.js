@@ -42,6 +42,9 @@ const page = {
             if (name == 'author') {
                 $('head meta[name=author]').attr('content', $part.data.content);
             }
+            if (name == 'analytics') {
+                $('head').append($part.data.content);
+            }
             if (name == 'header') {
                 $('header#mainHeader').append($part.data.content);
             }
@@ -76,6 +79,7 @@ $(document).ready(function() {
 	page.getPart('logo');
 	page.getPart('description');
 	page.getPart('author');
+	page.getPart('analytics');
 	page.getPart('header');        
 	page.getMenu();
 	page.getPart('footer');        
