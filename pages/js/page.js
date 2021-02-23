@@ -70,6 +70,10 @@ const page = {
 				const id = pageUrl.substring(pageUrl.indexOf('/#page-') + 7);
 				page.getContent(id);
 			}
+			else {
+				const $section = '<section class="page-section bg-light" id="page-not-found"><h1 class="text-center">Page not found.</h1></section>';
+				$('body#page-top div#mainContent').html($section);
+			}
 		}
     },
 };
