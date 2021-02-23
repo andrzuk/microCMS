@@ -73,6 +73,11 @@ const page = {
                 setTimeout(function() { $('a#top-menu-' + id).click(); }, 1000);
             });
         }
+        if (pageUrl.indexOf('/#page-') !== -1) {
+            const id = pageUrl.substring(pageUrl.indexOf('/#page-') + 7);
+            const pathUrl = '/pages/#page-' + id;
+            window.location.href = pathUrl;
+        }
     },
     loadContent: function(index) {
         window.location.href = '/pages/#' + index;
