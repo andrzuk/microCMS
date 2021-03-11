@@ -98,6 +98,7 @@ div#mainContent div.itemContent table.table tr.locked {
 
 div#mainContent div.itemContent table.table td.action {
 	display: flex;
+	margin-top: -1px;
 }
 
 div#mainContent div.itemContent button.btn-default {
