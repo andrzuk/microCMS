@@ -4,12 +4,12 @@ const API = {
 };
 
 const MSG = { SUCCESS: 1, FAILURE: 2, delay: 5000 };
+const ENTER = 13, ESCAPE = 27;
 
 function showRegisterForm() {
     $('div#registerForm').fadeIn(function() {
         setTimeout(function () { $('input#email-register').focus(); }, 500);
-        $('form#mainRegisterForm input').on('keydown', function(event) {
-            const ENTER = 13, ESCAPE = 27;
+        $('form#mainRegisterForm input').unbind('keydown').on('keydown', function(event) {
             if (event.keyCode == ENTER) {
                 event.preventDefault();
                 registerUser();
@@ -33,26 +33,26 @@ function registerUser() {
             localStorage.setItem(API.accessToken, result.user.access_token);
             localStorage.setItem('userName', result.user.name);
             localStorage.setItem('userEmail', result.user.email);
-            showPreview();
+            setTimeout(function() { showPreview(); }, 2000);
             showMessage(MSG.SUCCESS, result.message);
+            $('div#progress').show();
+            animateProgress();
         }
         else {
             localStorage.removeItem(API.accessToken);
             localStorage.removeItem('userName');
             localStorage.removeItem('userEmail');
-            showRegisterForm();
+            setTimeout(function() { showRegisterForm(); }, 1000);
             showMessage(MSG.FAILURE, result.message);
         }
     });
     $('div#registerForm').fadeOut(function() {
         $('form#mainRegisterForm input').val(null);
-        $('div#progress').show();
-        animateProgress();
     });
 }
 
 function animateProgress() {
-    const delta = 10;
+    const delta = 50;
     function step(percent) {
         $('div#progress div.progress-bar').css('width', percent + '%').attr('aria-valuenow', percent);
         $('div#progress div.percent').text(percent + '%');
@@ -61,13 +61,13 @@ function animateProgress() {
             if (percent <= 100) {
                 step(percent);
             }
-        }, 50);
+        }, 500);
     }
     step(0);
 }
 
 function showMessage(type, message) {
-    $('div#messages').show();
+    $('div#alerts').show();
     $('div.alert').hide();
     if (type == MSG.SUCCESS) {
         $('div.alert-success').text(message).show();
@@ -75,7 +75,7 @@ function showMessage(type, message) {
     if (type == MSG.FAILURE) {
         $('div.alert-danger').text(message).show();
     }
-    setTimeout(function() { $('div.alert').hide(); $('div#messages').hide(); }, MSG.delay);
+    setTimeout(function() { $('div.alert').hide(); $('div#alerts').hide(); }, MSG.delay);
 }
 
 function showPreview() {
@@ -85,5 +85,5 @@ function showPreview() {
 }
 
 $(document).ready(function() {
-	showRegisterForm();
+    showRegisterForm();
 });

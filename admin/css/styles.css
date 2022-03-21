@@ -23,7 +23,7 @@ div#mainContent div.loginForm {
 }
 
 div#mainContent div.loginForm form#mainLoginForm {
-	margin: 7em 0 0 0;
+	margin: 0;
 	padding: 2em;
 	text-align: left;
 	color: #666;
@@ -42,6 +42,33 @@ div#mainContent div.loginForm form#mainLoginForm div.button button.btn {
 	margin: 5px 0;
 }
 
+div#mainContent div.remindForm {
+	text-align: left;
+	color: #666;
+	padding-top: 2em;
+	display: none;
+}
+
+div#mainContent div.remindForm form#mainRemindForm {
+	margin: 0;
+	padding: 2em;
+	text-align: left;
+	color: #666;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f9f9f9;
+}
+
+div#mainContent div.remindForm form#mainRemindForm div.button {
+	padding-top: 1em;
+	text-align: right;
+}
+
+div#mainContent div.remindForm form#mainRemindForm div.button button.btn {
+	width: 120px;
+	margin: 5px 0;
+}
+
 div#mainContent div.itemContent {
 	text-align: left;
 	color: #666;
@@ -56,7 +83,7 @@ div#mainContent div.itemContent button.btn-block {
 
 div#mainContent div.itemContent table.table {
 	margin: 2em 0 0 0;
-	display: table;
+	display: block;
 	max-height: 500px;
 	overflow-y: auto;
 }
@@ -71,6 +98,7 @@ div#mainContent div.itemContent table.table tr.locked {
 
 div#mainContent div.itemContent table.table td.action {
 	display: flex;
+	margin-top: -1px;
 }
 
 div#mainContent div.itemContent button.btn-default {
@@ -79,7 +107,7 @@ div#mainContent div.itemContent button.btn-default {
 }
 
 div#mainContent div.itemContent table.table button.btn {
-	margin: 1px;
+	margin: 0 2px;
 }
 
 div#mainContent div.itemContent form.form {
@@ -105,8 +133,9 @@ div#mainContent div.itemContent form.form textarea.form-control {
 div#mainContent div.itemContent form#imageForm span#previewImage {
 	border: 1px solid #ccc;
 	padding: 2px;
-	display: block;
+	display: flex;
 	text-align: center;
+	min-height: 200px;
 }
 
 div#mainContent div.itemContent form#imageForm span#previewImage img {
@@ -125,7 +154,7 @@ div#mainContent div.modal-content {
 	color: #c00;
 }
 
-div#messages {
+div#alerts {
 	position: fixed;
 	left: 0;
 	bottom: 2em;
@@ -134,7 +163,7 @@ div#messages {
 	display: none;
 }
 
-div#messages div.alert {
+div#alerts div.alert {
 	text-align: center;
 	display: none;
 }

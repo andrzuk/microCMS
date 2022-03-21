@@ -4,6 +4,7 @@ const API = {
 };
 
 const MSG = { SUCCESS: 1, FAILURE: 2, delay: 5000 };
+const ENTER = 13, ESCAPE = 27;
 
 const page = {
     getReady: function(callback) {
@@ -46,6 +47,9 @@ const page = {
             if (name == 'author') {
                 $('head meta[name=author]').attr('content', $part.data.content);
             }
+            if (name == 'analytics') {
+                $('head').append($part.data.content);
+            }
             if (name == 'style') {
                 $('style#customStyle').html($part.data.content);
             }
@@ -61,10 +65,10 @@ function showLoginForm() {
     $('li.logged-in').hide();
     $('div#masterTabs').hide();
     $('div.itemContent').hide();
+    $('div#remindForm').hide();
     $('div#loginForm').fadeIn(function() {
         setTimeout(function () { $('input#email').focus(); }, 500);
-        $('form#mainLoginForm input').on('keydown', function(event) {
-            const ENTER = 13, ESCAPE = 27;
+        $('form#mainLoginForm input').unbind('keydown').on('keydown', function(event) {
             if (event.keyCode == ENTER) {
                 event.preventDefault();
                 loginUser();
@@ -129,6 +133,47 @@ function logoutUser() {
     }
 }
 
+function showRemindForm() {
+    $('li.logged-out').show();
+    $('li.logged-in').hide();
+    $('div#masterTabs').hide();
+    $('div.itemContent').hide();
+    $('div#loginForm').hide();
+    $('div#remindForm').fadeIn(function() {
+        setTimeout(function () { $('input#remind-email').focus(); }, 500);
+        $('form#mainRemindForm input').unbind('keydown').on('keydown', function(event) {
+            if (event.keyCode == ENTER) {
+                event.preventDefault();
+                remindUser();
+            }
+            if (event.keyCode == ESCAPE) {
+                event.preventDefault();
+                showPreview();
+            }
+        });
+    });
+}
+
+function remindUser() {
+    const credentials = {
+        'email': $('form#mainRemindForm input[name=email]').val(),
+    };
+    $.post(API.url + 'remind.php', credentials, function(response, status) {
+        const result = JSON.parse(response.substring(response.indexOf('{')));
+        if (result.success) {
+            showLoginForm();
+            showMessage(MSG.SUCCESS, result.message);
+        }
+        else {
+            showRemindForm();
+            showMessage(MSG.FAILURE, result.message);
+        }
+    });
+    $('div#remindForm').fadeOut(function() {
+        $('form#mainRemindForm input').val(null);
+    });
+}
+
 function showPreview() {
     const adminUrl = window.location.href;
     const pageUrl = adminUrl.replace('/admin', '');
@@ -141,11 +186,22 @@ function showAdminPanel() {
     $('div#masterTabs').show();
     $('div.itemContent').hide();
     $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#imagesList').fadeIn();
+    setTimeout(function() {
+        $('div#masterTabs').show();		
+        $('div.itemContent').show();
+        $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#pagesList, div#imagesList, div#messagesList').fadeIn();
+        $('div.itemContent form input').prop('disabled', true);
+        $('div.itemContent form textarea').prop('disabled', true);
+        $('div.itemContent form select').prop('disabled', true);
+        $('div.itemContent form button').prop('disabled', true);
+    }, 500);
     loadUsersList();
     loadPartsList();
     loadMenusList();
     loadSectionsList();
+    loadPagesList();
     loadImagesList();
+    loadMessagesList();
 }
 
 function loadUsersList() {
@@ -161,7 +217,8 @@ function loadUsersList() {
                 const data = JSON.parse(response.substring(response.indexOf('{')));
                 $.each(data.result, function(idx, item) {
                     const status = parseInt(item.active) ? 'normal' : 'locked';
-                    const $row = $('<tr class="'+status+'"><th scope="row">'+item.id+'</th><td>'+item.login+'</td><td>'+item.email+'</td><td>'+item.role+'</td><td>'+item.logged_in+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillUser('+item.id+')">Edytuj</button><button class="btn btn-sm btn-info" onclick="changePassword('+item.id+')">Hasło</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'users\', '+item.id+')">Usuń</button></td></tr>');
+                    const role = item.role == 1 ? 'ADMIN' : (item.role == 2 ? 'OPER' : (item.role == 3 ? 'USER' : (item.role == 4 ? 'GUES' : null)));
+                    const $row = $('<tr class="'+status+'"><th scope="row">'+item.id+'</th><td>'+item.login+'</td><td>'+item.email+'</td><td>'+role+'</td><td>'+item.logged_in+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillUser('+item.id+')">Edytuj</button><button class="btn btn-sm btn-info" onclick="changePassword('+item.id+')">Hasło</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'users\', '+item.id+')">Usuń</button></td></tr>');
                     $('div#usersList table tbody').append($row);
                 });
             },
@@ -170,6 +227,10 @@ function loadUsersList() {
 }
 
 function addUser() {
+    $('div#usersList form#userForm input').prop('disabled', null);
+    $('div#usersList form#userForm button').prop('disabled', null);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
     $('form#userForm input#user-id').val(0);
     $('form#userForm input#edit-login').val(null);
     $('form#userForm input#edit-email').val(null);
@@ -198,6 +259,10 @@ function fillUser(id) {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', null);
+    $('div#usersList form#userForm button').prop('disabled', null);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
 }
 
 function saveUser() {
@@ -228,6 +293,10 @@ function saveUser() {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', true);
+    $('div#usersList form#userForm button').prop('disabled', true);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
 }
 
 function changePassword(id) {
@@ -244,6 +313,10 @@ function changePassword(id) {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', true);
+    $('div#usersList form#userForm button').prop('disabled', true);
+    $('div#usersList form#passwordForm input').prop('disabled', null);
+    $('div#usersList form#passwordForm button').prop('disabled', null);
 }
 
 function savePassword() {
@@ -270,6 +343,10 @@ function savePassword() {
             },
         });
     }
+    $('div#usersList form#userForm input').prop('disabled', true);
+    $('div#usersList form#userForm button').prop('disabled', true);
+    $('div#usersList form#passwordForm input').prop('disabled', true);
+    $('div#usersList form#passwordForm button').prop('disabled', true);
 }
 
 function removeUser(id) {
@@ -328,6 +405,9 @@ function fillPart(id) {
             },
         });
     }
+    $('div#partsList form#partForm input').prop('disabled', null);
+    $('div#partsList form#partForm textarea').prop('disabled', null);
+    $('div#partsList form#partForm button').prop('disabled', null);
 }
 
 function savePart() {
@@ -356,6 +436,9 @@ function savePart() {
             },
         });
     }
+    $('div#partsList form#partForm input').prop('disabled', true);
+    $('div#partsList form#partForm textarea').prop('disabled', true);
+    $('div#partsList form#partForm button').prop('disabled', true);
 }
 
 function loadMenusList() {
@@ -379,6 +462,8 @@ function loadMenusList() {
 }
 
 function addMenu() {
+    $('div#menusList form#menuForm input').prop('disabled', null);
+    $('div#menusList form#menuForm button').prop('disabled', null);
     $('form#menuForm input#menu-id').val(0);
     $('form#menuForm input#edit-caption').val(null);
     $('form#menuForm input#edit-sequence').val(null);
@@ -405,6 +490,8 @@ function fillMenu(id) {
             },
         });
     }
+    $('div#menusList form#menuForm input').prop('disabled', null);
+    $('div#menusList form#menuForm button').prop('disabled', null);
 }
 
 function saveMenu() {
@@ -434,6 +521,8 @@ function saveMenu() {
             },
         });
     }
+    $('div#menusList form#menuForm input').prop('disabled', true);
+    $('div#menusList form#menuForm button').prop('disabled', true);
 }
 
 function removeMenu(id) {
@@ -501,6 +590,10 @@ function addSection() {
             },
         });
     }
+    $('div#sectionsList form#sectionForm input').prop('disabled', null);
+    $('div#sectionsList form#sectionForm textarea').prop('disabled', null);
+    $('div#sectionsList form#sectionForm select').prop('disabled', null);
+    $('div#sectionsList form#sectionForm button').prop('disabled', null);
 }
 
 function fillSection(id) {
@@ -535,6 +628,10 @@ function fillSection(id) {
             },
         });
     }
+    $('div#sectionsList form#sectionForm input').prop('disabled', null);
+    $('div#sectionsList form#sectionForm textarea').prop('disabled', null);
+    $('div#sectionsList form#sectionForm select').prop('disabled', null);
+    $('div#sectionsList form#sectionForm button').prop('disabled', null);
 }
 
 function saveSection() {
@@ -565,6 +662,10 @@ function saveSection() {
             },
         });
     }
+    $('div#sectionsList form#sectionForm input').prop('disabled', true);
+    $('div#sectionsList form#sectionForm textarea').prop('disabled', true);
+    $('div#sectionsList form#sectionForm select').prop('disabled', true);
+    $('div#sectionsList form#sectionForm button').prop('disabled', true);
 }
 
 function removeSection(id) {
@@ -579,6 +680,111 @@ function removeSection(id) {
                 if (data.success) {
                     $('form#sectionForm input, form#sectionForm textarea, form#sectionForm select').val(null);
                     loadSectionsList();
+                    showMessage(MSG.SUCCESS, data.message);
+                }
+                else {
+                    showMessage(MSG.FAILURE, data.message);
+                }
+            },
+        });
+    }
+}
+
+function loadPagesList() {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_pages.php',
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                $('div#pagesList table tbody').html(null);
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $.each(data.result, function(idx, item) {
+                    const $row = $('<tr><th scope="row">'+item.id+'</th><td>'+item.page_index+'</td><td>'+item.title+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillPage('+item.id+')">Edytuj</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'pages\', '+item.id+')">Usuń</button></td></tr>');
+                    $('div#pagesList table tbody').append($row);
+                });
+            },
+        });
+    }
+}
+
+function addPage() {
+    $('div#pagesList form#pageForm input').prop('disabled', null);
+    $('div#pagesList form#pageForm textarea').prop('disabled', null);
+    $('div#pagesList form#pageForm button').prop('disabled', null);
+    $('form#pageForm input#page-id').val(0);
+    $('form#pageForm input#page-index').val(null);
+    $('form#pageForm input#page-title').val(null);
+	$('form#pageForm textarea#page-content').val(null);
+    $('form#pageForm input#page-index').focus();
+}
+
+function fillPage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_page.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $('form#pageForm input#page-id').val(data.result.id);
+                $('form#pageForm input#page-index').val(data.result.page_index);
+                $('form#pageForm input#page-title').val(data.result.title);
+                $('form#pageForm textarea#page-content').val(data.result.content).focus();
+            },
+        });
+    }
+    $('div#pagesList form#pageForm input').prop('disabled', null);
+    $('div#pagesList form#pageForm textarea').prop('disabled', null);
+    $('div#pagesList form#pageForm button').prop('disabled', null);
+}
+
+function savePage() {
+    const page = {
+        id: $('form#pageForm input#page-id').val(),
+        page_index: $('form#pageForm input#page-index').val(),
+        title: $('form#pageForm input#page-title').val(),
+        content: $('form#pageForm textarea#page-content').val(),
+    };
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + (page.id == 0 ? 'admin/add_page.php' : 'admin/update_page.php'),
+            headers: { 'X-Auth-Token': token },
+            data: page,
+            type: 'POST',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                if (data.success) {
+                    $('form#pageForm input, form#pageForm textarea').val(null);
+                    loadPagesList();
+                    showMessage(MSG.SUCCESS, data.message);
+                }
+                else {
+                    showMessage(MSG.FAILURE, data.message);
+                }
+            },
+        });
+    }
+    $('div#pagesList form#pageForm input').prop('disabled', true);
+    $('div#pagesList form#pageForm textarea').prop('disabled', true);
+    $('div#pagesList form#pageForm button').prop('disabled', true);
+}
+
+function removePage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/remove_page.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                if (data.success) {
+                    $('form#pageForm input, form#pageForm textarea').val(null);
+                    loadPagesList();
                     showMessage(MSG.SUCCESS, data.message);
                 }
                 else {
@@ -606,6 +812,11 @@ function loadImagesList() {
             },
         });
     }
+}
+
+function addImage() {
+    $('div#imagesList form#imageForm input').prop('disabled', null);
+    $('div#imagesList form#imageForm button').prop('disabled', null);
 }
 
 function uploadImage() {
@@ -636,6 +847,8 @@ function uploadImage() {
             },
         });
     }
+    $('div#imagesList form#imageForm input').prop('disabled', true);
+    $('div#imagesList form#imageForm button').prop('disabled', true);
 }
 
 function showImage(id) {
@@ -653,6 +866,8 @@ function showImage(id) {
             },
         });
     }
+    $('div#imagesList form#imageForm input').prop('disabled', true);
+    $('div#imagesList form#imageForm button').prop('disabled', true);
 }
 
 function removeImage(id) {
@@ -679,6 +894,64 @@ function removeImage(id) {
     }
 }
 
+function loadMessagesList() {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_messages.php',
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                $('div#messagesList table tbody').html(null);
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $.each(data.result, function(idx, item) {
+                    const $row = $('<tr><th scope="row">'+item.id+'</th><td>'+item.name.substring(0, 32)+'</td><td>'+item.email.substring(0, 32)+'</td><td>'+item.sent+'</td><td class="action"><button class="btn btn-sm btn-warning" onclick="fillMessage('+item.id+')">Pokaż</button><button class="btn btn-sm btn-danger" onclick="removeConfirm(\'messages\', '+item.id+')">Usuń</button></td></tr>');
+                    $('div#messagesList table tbody').append($row);
+                });
+            },
+        });
+    }
+}
+
+function fillMessage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/get_message.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                $('form#messageForm input#message-name').val(data.result.name);
+                $('form#messageForm input#message-email').val(data.result.email);
+                $('form#messageForm textarea#message-content').val(data.result.content);
+            },
+        });
+    }
+}
+
+function removeMessage(id) {
+    const token = localStorage.getItem(API.accessToken);
+    if (token) {
+        $.ajax({
+            url: API.url + 'admin/remove_message.php?id=' + id,
+            headers: { 'X-Auth-Token': token },
+            type: 'GET',
+            success: function(response) { 
+                const data = JSON.parse(response.substring(response.indexOf('{')));
+                if (data.success) {
+                    $('form#messageForm input, form#messageForm textarea').val(null);
+                    loadMessagesList();
+                    showMessage(MSG.SUCCESS, data.message);
+                }
+                else {
+                    showMessage(MSG.FAILURE, data.message);
+                }
+            },
+        });
+    }
+}
+
 function removeConfirm(table, id) {
     $('div#removeConfirm').modal();
     $('div#removeConfirm button#confirm').unbind('click').on('click', function() {
@@ -694,11 +967,21 @@ function removeConfirm(table, id) {
         if (table == 'sections') {
             removeSection(id);
         }
+        if (table == 'pages') {
+            removePage(id);
+        }
+        if (table == 'messages') {
+            removeMessage(id);
+        }
     });
+    $('div.itemContent form input').prop('disabled', true);
+    $('div.itemContent form textarea').prop('disabled', true);
+    $('div.itemContent form select').prop('disabled', true);
+    $('div.itemContent form button').prop('disabled', true);
 }
 
 function showMessage(type, message) {
-    $('div#messages').show();
+    $('div#alerts').show();
     $('div.alert').hide();
     if (type == MSG.SUCCESS) {
         $('div.alert-success').text(message).show();
@@ -706,7 +989,7 @@ function showMessage(type, message) {
     if (type == MSG.FAILURE) {
         $('div.alert-danger').text(message).show();
     }
-    setTimeout(function() { $('div.alert').hide(); $('div#messages').hide(); }, MSG.delay);
+    setTimeout(function() { $('div.alert').hide(); $('div#alerts').hide(); }, MSG.delay);
 }
 
 $(document).ready(function() {
@@ -715,6 +998,7 @@ $(document).ready(function() {
             page.getPart('title');
             page.getPart('description');
             page.getPart('author');
+            page.getPart('analytics');
             page.getPart('style');
             page.getPart('script');
             page.checkAuthorization();

@@ -5,14 +5,12 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Bare - Start Bootstrap Template</title>
-
+  <meta name="description" content="Simple CMS integrated with responsive web page." />
+  <meta name="author" content="Andrzej Żukowski" />
+  <title>Micro CMS - Simple and fast Content Management System</title>
+  <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico" />
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
   <!-- Admin Page CSS -->
   <link href="css/styles.css" rel="stylesheet">
 
@@ -72,6 +70,31 @@
                           <button class="btn btn-lg btn-warning" type="button" onclick="showPreview()">Anuluj</button>
                       </div>
                   </form>
+                  <div class="text-center mt-3">
+                      <a href="#" onclick="showRemindForm()">Nie pamiętam hasła</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <!-- End -->
+          <!-- Remind Form -->
+          <div class="remindForm" id="remindForm">
+            <div class="row">
+              <div class="col-md-4 mx-auto">
+                  <form class="form" id="mainRemindForm" method="POST">
+                      <h3 class="mb-4">Weryfikacja</h3>
+                      <div class="form-group">
+                          <label for="email">Email:</label>
+                          <input type="text" id="remind-email" name="email" class="form-control" required />
+                      </div>
+                      <div class="button">
+                          <button class="btn btn-lg btn-primary" type="button" onclick="remindUser()">Wyślij</button>
+                          <button class="btn btn-lg btn-warning" type="button" onclick="showPreview()">Anuluj</button>
+                      </div>
+                  </form>
+                  <div class="text-center mt-3">
+                      <a href="#" onclick="showLoginForm()">Chcę się zalogować</a>
+                  </div>
               </div>
             </div>
           </div>
@@ -92,7 +115,13 @@
 				<a class="nav-link" id="sections-tab" data-toggle="tab" href="#sections" role="tab" aria-controls="sections" aria-selected="false">Sections</a>
 			  </li>
 			  <li class="nav-item">
+				<a class="nav-link" id="pages-tab" data-toggle="tab" href="#pages" role="tab" aria-controls="pages" aria-selected="false">Pages</a>
+			  </li>
+			  <li class="nav-item">
 				<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a>
 			  </li>
 			</ul>
 			<!-- Nav Tab End -->
@@ -193,7 +222,7 @@
 						  </div>
 						  <div class="form-group">
 							  <label for="content">Content:</label>
-							  <textarea id="edit-content" name="content" class="form-control" required></textarea>
+							  <textarea id="edit-content" name="content" class="form-control" spellcheck="false" required></textarea>
 						  </div>
 						  <input type="hidden" id="part-id">
 						  <div class="button">
@@ -279,7 +308,7 @@
 						  </div>
 						  <div class="form-group">
 							  <label for="content">Content:</label>
-							  <textarea id="edit-contents" name="content" class="form-control" required></textarea>
+							  <textarea id="edit-contents" name="content" class="form-control" spellcheck="false" required></textarea>
 						  </div>
 						  <div class="form-group">
 							  <label for="order">Sequence:</label>
@@ -296,6 +325,49 @@
 						  <input type="hidden" id="section-id">
 						  <div class="button">
 							  <button class="btn btn-md btn-primary" type="button" onclick="saveSection()">Zapisz</button>
+						  </div>
+						</form>
+					  </div>
+					</div>
+				  </div>
+				  <!-- End -->
+			  </div>
+			  <div class="tab-pane fade" id="pages" role="tabpanel" aria-labelledby="pages-tab">
+				  <!-- Pages List -->
+				  <div class="itemContent" id="pagesList">
+					<div class="row">
+					  <div class="col-md-5">
+						<table class="table">
+						  <thead>
+							<tr>
+							  <th scope="col">#</th>
+							  <th scope="col">Index</th>
+							  <th scope="col">Title</th>
+							  <th scope="col">Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>
+						<button class="btn btn-md btn-block btn-default" type="button" onclick="addPage()">Dodaj</button>
+					  </div>
+					  <div class="col-md-7">
+						<form class="form" id="pageForm" method="POST">
+						  <div class="form-group">
+							  <label for="page_index">Index:</label>
+							  <input type="text" id="page-index" name="page_index" class="form-control" required />
+						  </div>
+						  <div class="form-group">
+							  <label for="title">Title:</label>
+							  <input type="text" id="page-title" name="title" class="form-control" required />
+						  </div>
+						  <div class="form-group">
+							  <label for="content">Content:</label>
+							  <textarea id="page-content" name="content" class="form-control" spellcheck="false" required></textarea>
+						  </div>
+						  <input type="hidden" id="page-id">
+						  <div class="button">
+							  <button class="btn btn-md btn-primary" type="button" onclick="savePage()">Zapisz</button>
 						  </div>
 						</form>
 					  </div>
@@ -321,6 +393,7 @@
 						  <tbody>
 						  </tbody>
 						</table>
+						<button class="btn btn-md btn-block btn-default" type="button" onclick="addImage()">Dodaj</button>
 					  </div>
 					  <div class="col-md-5">
 						<form class="form" id="imageForm" method="POST" enctype="multipart/form-data">
@@ -345,7 +418,46 @@
 				  </div>
 				  <!-- End -->
 			  </div>
+			  <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+				<!-- Messages List -->
+				<div class="itemContent" id="messagesList">
+				  <div class="row">
+					<div class="col-md-7">
+					  <table class="table">
+						<thead>
+						  <tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Sent</th>
+							<th scope="col">Action</th>
+						  </tr>
+						</thead>
+						<tbody>
+						</tbody>
+					  </table>
+					</div>
+					<div class="col-md-5">
+						<form class="form" id="messageForm">
+							<div class="form-group">
+								<label for="name">Name:</label>
+								<input type="text" id="message-name" name="name" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="email">Email:</label>
+								<input type="text" id="message-email" name="email" class="form-control" />
+							</div>
+							<div class="form-group">
+								<label for="content">Content:</label>
+								<textarea id="message-content" name="content" class="form-control" spellcheck="false"></textarea>
+							</div>
+						</form>
+					</div>
+				  </div>
+				</div>
+				<!-- End -->
 			</div>
+		  </div>
 			<!-- Nav Tab End -->
           <!-- Modal Confirmation -->
           <div class="modal" id="removeConfirm" tabindex="-1">
@@ -373,7 +485,7 @@
     </div>
   </div>
   <!-- Alerts -->
-  <div id="messages">
+  <div id="alerts">
     <div class="alert alert-success" role="alert">
       A simple success alert—check it out!
     </div>

@@ -16,7 +16,7 @@ const page = {
         $.get(API.url + 'get_menu.php', function(response, status) {
             const menu = JSON.parse(response.substring(response.indexOf('{')));
             $.each(menu.data, function(idx, item) {
-                const $link = '<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#menu-'+item.id+'">'+item.caption+'</a></li>';
+                const $link = '<li class="nav-item"><a class="nav-link js-scroll-trigger" id="top-menu-'+item.id+'" href="#menu-'+item.id+'">'+item.caption+'</a></li>';
                 $('nav#mainNav div#navbarResponsive ul.navbar-nav').append($link);
             });            
             pageScrolling();
@@ -46,6 +46,9 @@ const page = {
             if (name == 'author') {
                 $('head meta[name=author]').attr('content', $part.data.content);
             }
+            if (name == 'analytics') {
+                $('head').append($part.data.content);
+            }
             if (name == 'header') {
                 $('header#mainHeader').append($part.data.content);
             }
@@ -60,7 +63,56 @@ const page = {
             }
         });
     },
+    goToSection: function() {
+        const pageUrl = window.location.href;
+        if (pageUrl.indexOf('/#section-') !== -1) {
+            const id = pageUrl.substring(pageUrl.indexOf('/#section-') + 10);
+            const sectionUrl = pageUrl.replace('/#section', '/#menu');
+            window.location.href = sectionUrl;
+            $(document).ready(function() {
+                setTimeout(function() { $('a#top-menu-' + id).click(); }, 1000);
+            });
+        }
+        if (pageUrl.indexOf('/#page-') !== -1) {
+            const id = pageUrl.substring(pageUrl.indexOf('/#page-') + 7);
+            const pathUrl = '/pages/#page-' + id;
+            window.location.href = pathUrl;
+        }
+    },
+    loadContent: function(index) {
+        window.location.href = '/pages/#' + index;
+    },
 };
+
+function sendMessage(contactForm) {
+    const $formInputs = contactForm.find('.form-control');
+    var formData = {}, sendLock = false;
+    $.each($formInputs, function(idx, item) {
+        formData[item.getAttribute('id')] = item.value;
+        if (!item.value) sendLock = true;
+    });
+    if (sendLock) return;
+    $this = $("#sendMessageButton");
+    $this.prop("disabled", true);
+    $.ajax({
+        url: API.url + 'contact.php',
+        type: "POST",
+        data: formData,
+        cache: false,
+        success: function (response) {
+            const ready = JSON.parse(response.substring(response.indexOf('{')));
+            const type = ready.result ? 'success' : 'danger';
+            const msg = ready.message;
+            $('div#success').html("<div class='alert alert-" + type + "'>" + msg + "<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button></div>");
+            $("#contactForm").trigger("reset");
+        },
+        complete: function () {
+            setTimeout(function () {
+                $this.prop("disabled", false);
+            }, 1000);
+        },
+    });
+}
 
 $(document).ready(function() {
     page.getReady(function(ready) {
@@ -69,12 +121,14 @@ $(document).ready(function() {
             page.getPart('logo');
             page.getPart('description');
             page.getPart('author');
-            page.getPart('header');        
+            page.getPart('analytics');
+            page.getPart('header');
             page.getMenu();
             page.getSections();
-            page.getPart('footer');        
+            page.getPart('footer');
             page.getPart('style');
             page.getPart('script');
+            page.goToSection();
         }
         else {
             page.showInstall();

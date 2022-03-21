@@ -19,7 +19,7 @@ div#mainContent div.registerForm {
 }
 
 div#mainContent div.registerForm form#mainRegisterForm {
-	margin: 7em 0 0 0;
+	margin: 0;
 	padding: 2em;
 	text-align: left;
 	color: #666;
@@ -38,7 +38,7 @@ div#mainContent div.registerForm form#mainRegisterForm div.button button.btn {
 	margin: 5px 0;
 }
 
-div#messages {
+div#alerts {
 	position: fixed;
 	left: 0;
 	bottom: 2em;
@@ -47,7 +47,7 @@ div#messages {
 	display: none;
 }
 
-div#messages div.alert {
+div#alerts div.alert {
 	text-align: center;
 	display: none;
 }
