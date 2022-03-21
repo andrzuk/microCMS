@@ -183,9 +183,8 @@ function showPreview() {
 function showAdminPanel() {
     $('li.logged-out').hide();
     $('li.logged-in').show();
-    $('div#masterTabs').show();
+    $('div#masterTabs').hide();
     $('div.itemContent').hide();
-    $('div#usersList, div#partsList, div#menusList, div#sectionsList, div#imagesList').fadeIn();
     setTimeout(function() {
         $('div#masterTabs').show();		
         $('div.itemContent').show();
