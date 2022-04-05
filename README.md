@@ -17,5 +17,5 @@ Frontend is based on HTML, JavaScript (jQuery) and CSS. Backend is based on PHP 
 - upload files 'index.html', 'styles.css', 'page.js' and 'register.php' to folder '/install'
 - request URL '/install' (http(s)://your-domain.com/install) in web browser
 - register yourself as ADMIN.
-## On-line: http://micro-cms.pl
+## On-line: http://exe-system.pl
 
