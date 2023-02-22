@@ -37,14 +37,19 @@ if (!empty($login) && !empty($email) && !empty($role) && !empty($token)) {
 		
 		if ($row['counter'] == 0) {
 
-			$query = 'INSERT INTO users (login, email, role, active)' .
-			'         VALUES (:login, :email, :role, :active)';
+			$password = '';
+			$token = '';
+
+			$query = 'INSERT INTO users (login, email, password, role, active, registered, logged_in, logged_out, token)' .
+			'         VALUES (:login, :email, :password, :role, :active, NOW(), NOW(), NOW(), :token)';
 
 			$statement = $db_connection->prepare($query);
 			$statement->bindParam(':login', $login, PDO::PARAM_STR);
 			$statement->bindParam(':email', $email, PDO::PARAM_STR);
+			$statement->bindParam(':password', $password, PDO::PARAM_STR);
 			$statement->bindParam(':role', $role, PDO::PARAM_INT);
 			$statement->bindParam(':active', $active, PDO::PARAM_INT);
+			$statement->bindParam(':token', $token, PDO::PARAM_STR);
 
 			$statement->execute();
 			
