@@ -818,6 +818,17 @@ function addImage() {
     $('div#imagesList form#imageForm button').prop('disabled', null);
 }
 
+function copyLink() {
+    const link = '../upload/' + $('form#imageForm span#imageName').text();
+    const imageTag = '<img src="' + link + '" width="auto" height="auto" alt="">';
+    const dummy = document.createElement("textarea");
+    dummy.value = imageTag;
+    document.body.appendChild(dummy);
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+}
+
 function uploadImage() {
     var file_data = $('#fileToUpload').prop('files')[0];
     var form_data = new FormData();
@@ -862,6 +873,7 @@ function showImage(id) {
                 $('form#imageForm span#imageId').text(data.result.id);
                 $('form#imageForm span#imageName').text(data.result.filename);
                 $('form#imageForm span#previewImage img').attr('src', '../upload/' + data.result.filename);
+                $('form#imageForm span#imageLink button').prop('disabled', null);
             },
         });
     }
